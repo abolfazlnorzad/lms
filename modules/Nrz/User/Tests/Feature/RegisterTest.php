@@ -1,9 +1,11 @@
 <?php
 
 namespace Nrz\User\Tests\Feature;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Nrz\User\Model\User;
+use Nrz\User\Services\verifyCodeService;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
@@ -60,4 +62,23 @@ class RegisterTest extends TestCase
         $response = $this->get(route('home'));
         $response->assertOk();
     }
+
+    public function testUserCanVerifyAccount()
+    {
+        $user = User::create([
+            'name' => 'abol',
+            'email' => 'abol7@gmail.com',
+            'phone' => '9011216133',
+            'password' => bcrypt('@b01faZ1')
+        ]);
+        $code = verifyCodeService::createCode();
+        auth()->loginUsingId($user->id);
+        $this->assertAuthenticated();
+        $this->post(route('verification.verify'), [
+            'verify_code' => $code
+        ]);
+
+        $this->assertEquals(true,$user->fresh()->hasVerifiedEmail());
+    }
+
 }

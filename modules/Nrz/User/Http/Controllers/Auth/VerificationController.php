@@ -1,10 +1,13 @@
 <?php
 
 namespace Nrz\User\Http\Controllers\Auth;
+
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
+use Nrz\User\Http\Requests\VerifyCodeRequest;
+use Nrz\User\Services\verifyCodeService;
 
 class VerificationController extends Controller
 {
@@ -36,7 +39,6 @@ class VerificationController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
@@ -45,6 +47,20 @@ class VerificationController extends Controller
         return $request->user()->hasVerifiedEmail()
             ? redirect($this->redirectPath())
             : view('User::Front.auth.verify');
+    }
+
+    public function verify(VerifyCodeRequest $request)
+    {
+        $code = verifyCodeService::get(auth()->id());
+
+        $status = verifyCodeService::check(auth()->id(), $code);
+        if ($status) {
+            auth()->user()->markEmailAsVerified();
+            return redirect(route('home'));
+        }
+        return back()->withErrors(['verify_code' => 'کد وارد شده صحیح نمیباشد']);
+
+
     }
 
 }
