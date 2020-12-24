@@ -38,7 +38,8 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Nrz\\User\\":"modules/Nrz/User/"
+            "Nrz\\User\\":"modules/Nrz/User/",
+            "Nrz\\Dashboard\\":"modules/Nrz/Dashboard/"
         }
     },
     "autoload-dev": {

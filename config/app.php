@@ -176,6 +176,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Nrz\User\Providers\UserServiceProvider::class,
+        Nrz\Dashboard\Providers\DashboardServiceProvider::class,
 
     ],
 
