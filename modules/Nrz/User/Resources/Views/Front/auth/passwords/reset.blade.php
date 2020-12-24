@@ -6,16 +6,6 @@
         </a>
         <div class="form-content form-account">
           @csrf
-            <input type="hidden" name="token" value="{{ $token }}">
-
-            <input value="{{ $email ?? old('email') }}" type="email" name="email" class="txt txt-l @error('email') is-invalid @enderror" placeholder="ایمیل" value="{{ old('email') }}" required
-                   autocomplete="email">
-            @error('email')
-            <span class="invalid-feedback" role="alert">
-                   <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-
             <input id="password" type="password" class="txt txt-l @error('password') is-invalid @enderror"
                    placeholder="رمز عبور جدید *"
                    name="password" required autocomplete="new-password"

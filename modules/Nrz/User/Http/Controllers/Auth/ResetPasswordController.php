@@ -1,10 +1,13 @@
 <?php
 
 namespace Nrz\User\Http\Controllers\Auth;
+
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
+use Nrz\User\Http\Requests\changePasswordRequest;
+use Nrz\User\Services\UserService;
 
 class ResetPasswordController extends Controller
 {
@@ -30,11 +33,14 @@ class ResetPasswordController extends Controller
 
     public function showResetForm(Request $request)
     {
-        $token = $request->route()->parameter('token');
+        return view('User::Front.auth.passwords.reset');
+    }
 
-        return view('User::Front.auth.passwords.reset')->with(
-            ['token' => $token, 'email' => $request->email]
-        );
+    public function reset(changePasswordRequest $request)
+    {
+        UserService::changePassword(auth()->user(),$request->password);
+        return redirect(route('home'));
+
     }
 
 }

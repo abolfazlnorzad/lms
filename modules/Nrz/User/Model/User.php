@@ -2,6 +2,7 @@
 
 namespace Nrz\User\Model;
 
+use App\Notifications\ResetPasswordRequestNotification;
 use App\Notifications\VerifyEamilNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,5 +50,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     }
 
+
+    public function sendResetPasswordRequest()
+    {
+        $this->notify(new ResetPasswordRequestNotification());
+    }
 
 }

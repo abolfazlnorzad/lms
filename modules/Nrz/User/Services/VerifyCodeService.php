@@ -6,6 +6,9 @@ namespace Nrz\User\Services;
 
 class verifyCodeService
 {
+
+    public static $prefix = 'verify_code_';
+
     /**
      * @return int
      */
@@ -18,19 +21,24 @@ class verifyCodeService
     public static function store($id, $code)
     {
 
-        cache()->set('verify_code_' . $id, $code, now()->addHour());
+        cache()->set(self::$prefix . $id, $code, now()->addHour());
 
 
     }
 
     public static function get($id)
     {
-        return cache()->get('verify_code_' . $id);
+        return cache()->get(self::$prefix . $id);
+    }
+
+    public static function has($id)
+    {
+        return cache()->has(self::$prefix . $id);
     }
 
     public static function delete($id)
     {
-        cache()->delete('verify_code_' . $id);
+        cache()->delete(self::$prefix . $id);
     }
 
     public static function check($id, $code)
