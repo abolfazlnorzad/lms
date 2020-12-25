@@ -39,7 +39,8 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "Nrz\\User\\":"modules/Nrz/User/",
-            "Nrz\\Dashboard\\":"modules/Nrz/Dashboard/"
+            "Nrz\\Dashboard\\":"modules/Nrz/Dashboard/",
+            "Nrz\\Category\\":"modules/Nrz/Category/"
         }
     },
     "autoload-dev": {

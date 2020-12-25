@@ -9,6 +9,7 @@ use Nrz\User\Model\User;
 
 class UserServiceProvider extends ServiceProvider
 {
+
     public function register()
     {
         config()->set('auth.providers.users.model',User::class);

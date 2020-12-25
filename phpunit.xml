@@ -16,6 +16,9 @@
         <testsuite name="Feature">
             <directory suffix="Test.php">./Modules/Nrz/User/Tests/Feature</directory>
         </testsuite>
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./Modules/Nrz/Category/Tests/Feature</directory>
+        </testsuite>
 
         <testsuite name="Feature">
             <directory suffix="Test.php">./tests/Feature</directory>

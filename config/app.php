@@ -177,6 +177,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Nrz\User\Providers\UserServiceProvider::class,
         Nrz\Dashboard\Providers\DashboardServiceProvider::class,
+        Nrz\Category\Providers\CategoryServiceProvider::class,
 
     ],
 

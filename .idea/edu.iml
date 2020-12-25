@@ -8,6 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/modules/Nrz/Dashboard" isTestSource="false" packagePrefix="Nrz\Dashboard\" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="Tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/Nrz/Category" isTestSource="false" packagePrefix="Nrz\Category\" />
       <sourceFolder url="file://$MODULE_DIR$/tests/Unit" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/modules/Nrz/User" isTestSource="false" packagePrefix="Nrz\User\" />
       <sourceFolder url="file://$MODULE_DIR$/tests/Feature" isTestSource="true" />
