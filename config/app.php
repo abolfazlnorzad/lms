@@ -178,6 +178,7 @@ return [
         Nrz\User\Providers\UserServiceProvider::class,
         Nrz\Dashboard\Providers\DashboardServiceProvider::class,
         Nrz\Category\Providers\CategoryServiceProvider::class,
+        Nrz\RolePermissions\Providers\RolePermissionsServiceProvider::class,
 
     ],
 

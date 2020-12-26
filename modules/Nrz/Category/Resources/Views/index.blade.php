@@ -30,7 +30,7 @@
                             <td>{{$category->parent}}</td>
                             <td>
                                 <a href=""
-                                   onclick="event.preventDefault();deleteItem(event,'{{route('categories.destroy',$category->id)}}')"
+                                   onclick="deleteItem(event,'{{route('categories.destroy',$category->id)}}')"
                                    class="item-delete mlg-15" title="حذف"></a>
                                 <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
                                 <a href="{{route('categories.edit',$category->id)}}" class="item-edit "
@@ -46,33 +46,5 @@
     </div>
 
 
-
-@endsection
-@section('css')
-    <link rel="stylesheet" href="/css/jquery.toast.min.css">
-@endsection
-@section('js')
-    <script src="/js/jquery.toast.min.js"></script>
-    <script>
-
-        function deleteItem(event, route) {
-            $.post(route, {
-                _method: "delete",
-                _token: "{{csrf_token()}}"
-            }).done((response) => {
-                event.target.closest('tr').remove()
-                $.toast({
-                    heading: 'عملیات موفق',
-                    text: response.message,
-                    showHideTransition: 'slide',
-                    icon: 'success'
-                })
-
-            }).fail((response) => {
-
-            })
-        }
-
-    </script>
 
 @endsection
