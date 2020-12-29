@@ -13,6 +13,15 @@ class UserRepo
         return User::query()->where('email', $email)->first();
     }
 
+    public function getTeachers()
+    {
+        return User::query()->permission('teach')->get();
+    }
+
+    public function findById($id)
+    {
+        return User::query()->where('id', $id)->first();
+    }
 
 
 }

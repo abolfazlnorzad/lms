@@ -13,7 +13,7 @@
     <ul>
 
         @foreach(config('sidebar.items') as $item)
-            <li class="item-li {{$item['icon']}} {{request()->url() == $item['url'] ?'is-active' :''}}"><a href="{{$item['url']}}">{{$item['title']}}</a></li>
+            <li class="item-li {{$item['icon']}} {{str_starts_with(request()->url(),$item['url'])   ?'is-active' :''}}"><a href="{{$item['url']}}">{{$item['title']}}</a></li>
         @endforeach
 
 {{--        <li class="item-li i-courses "><a href="courses.html">دوره ها</a></li>--}}

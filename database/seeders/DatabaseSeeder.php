@@ -6,13 +6,14 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
+    public static $seeders=[];
     public function run()
     {
         // \App\Model\User::factory(10)->create();
+//        $this->call(RolePermissionTableSeeder::class);
+
+        foreach (self::$seeders as $seed){
+            $this->call($seed);
+        }
     }
 }

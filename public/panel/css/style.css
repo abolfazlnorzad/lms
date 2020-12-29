@@ -1340,7 +1340,7 @@ select {
     justify-content: flex-start;
     margin-bottom: 12px;
     align-items: center;
-	flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 
 .tags li.tagAdd, .tags li.addedTag {
@@ -1375,11 +1375,11 @@ span.tagRemove:hover {
     color: #222222;
 }
 @media (max-width: 414px) {
-  .tab__item{
-      width: 100%;
-      text-align: center;
-      margin-bottom: 5px;
-  }
+    .tab__item{
+        width: 100%;
+        text-align: center;
+        margin-bottom: 5px;
+    }
 }
 
 @media (max-width: 346px) {
@@ -1875,34 +1875,44 @@ span.tagRemove:hover {
 .notification__box .title__noti{
     padding: 15px 0;
 }
+
 .pt-1{
     padding-top: 10px;
 }
-.pr-3{
-    padding-right: 30px;
-}
-.mt-0{
-    margin-top: 0 !important;
-}
+
 .mt-2{
     margin-top: 20px;
 }
 
-.mb-0{
-    margin-bottom: 0 !important;
-}
-
 .invalid-feedback{
     color: red;
+    font-size:13px!important; ;
 }
+
+.pr-3{
+   padding-right: 30px!important;
+}
+.text{
+    margin-top: 25px!important;
+    margin-bottom: 0!important;
+}
+
 .w-100{
-    width: 100% !important;
+    width:100%!important;
 }
 
-.multi-text{
-    margin-bottom: 15px;
+.mb-30{
+    margin-bottom: 30px!important;
 }
 
-.deleteable-list-item:hover .item-delete{
-    display: inline-block;
+.dropdown-select{
+    margin-top: 25px!important;
+    margin-bottom: 0!important;
+}
+.tags{
+    margin-top: 25px!important;
+    margin-bottom: 0!important;
+}
+.i-file-upload{
+    margin-top: 25px;
 }

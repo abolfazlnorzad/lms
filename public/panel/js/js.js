@@ -214,25 +214,49 @@ $('.discounts #discounts-field-1').on('click', function (e) {
 
 function deleteItem(event, route) {
     event.preventDefault();
-    $.post(route, {
-        _method: "delete",
-        _token: $('meta[name="_token"]').attr('content')
-    }).done((response) => {
-        event.target.closest('tr').remove()
-        $.toast({
-            heading: 'عملیات موفق',
-            text: response.message,
-            showHideTransition: 'slide',
-            icon: 'success'
-        })
+    if(confirm('آیا از حذف این آیتم اطمینان دارید؟')){
+        $.post(route, { _method: "delete", _token: $('meta[name="_token"]').attr('content') })
 
-    }).fail((response) => {
-        $.toast({
-            heading: 'عملیات ناموفق',
-            text: response.message,
-            showHideTransition: 'slide',
-            icon: 'error'
-        })
-    })
+            .done(function (response) {
+                event.target.closest('tr').remove();
+                $.toast({
+                    heading: 'عملیات موفق',
+                    text: response.message,
+                    showHideTransition: 'slide',
+                    icon: 'success'
+                })
+            })
+            .fail(function (response) {
+                $.toast({
+                    heading: 'عملیات ناموفق',
+                    text: response.message,
+                    showHideTransition: 'slide',
+                    icon: 'error'
+                })
+            })
+    }
 }
+function changeConfirmationStatus(event, route,message,status,field='confirmation_status') {
+    event.preventDefault();
+    if(confirm(message)){
+        $.post(route, { _method: "patch", _token: $('meta[name="_token"]').attr('content') })
 
+            .done(function (response) {
+                $(event.target).closest('tr').find('td.'+field).text(status)
+                $.toast({
+                    heading: 'عملیات موفق',
+                    text: response.message,
+                    showHideTransition: 'slide',
+                    icon: 'success'
+                })
+            })
+            .fail(function (response) {
+                $.toast({
+                    heading: 'عملیات ناموفق',
+                    text: response.message,
+                    showHideTransition: 'slide',
+                    icon: 'error'
+                })
+            })
+    }
+}

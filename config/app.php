@@ -178,7 +178,8 @@ return [
         Nrz\User\Providers\UserServiceProvider::class,
         Nrz\Dashboard\Providers\DashboardServiceProvider::class,
         Nrz\Category\Providers\CategoryServiceProvider::class,
-        Nrz\RolePermissions\Providers\RolePermissionsServiceProvider::class,
+        Nrz\Course\Providers\CourseServiceProvider::class,
+        Nrz\Media\Providers\MediaServiceProvider::class,
 
     ],
 
@@ -231,6 +232,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Image' => Intervention\Image\Facades\Image::class
 
     ],
 
