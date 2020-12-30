@@ -43,7 +43,8 @@
             "Nrz\\Dashboard\\":"modules/Nrz/Dashboard/",
             "Nrz\\Category\\":"modules/Nrz/Category/",
             "Nrz\\Course\\":"modules/Nrz/Course/",
-            "Nrz\\Media\\":"modules/Nrz/Media/"
+            "Nrz\\Media\\":"modules/Nrz/Media/",
+            "Nrz\\Acl\\":"modules/Nrz/Acl/"
         }
     },
     "autoload-dev": {

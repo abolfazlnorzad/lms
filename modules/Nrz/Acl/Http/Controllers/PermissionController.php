@@ -1,0 +1,59 @@
+<?php
+
+namespace Nrz\Acl\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Nrz\Acl\Http\Request\PermissionRequest;
+use Nrz\Acl\Model\Permission;
+use Nrz\Acl\Repo\PermissionRepo;
+use Nrz\Category\Response\AjaxResponse;
+
+class PermissionController extends Controller
+{
+    public $repo;
+
+    public function __construct(PermissionRepo $permissionRepo)
+    {
+        $this->repo = $permissionRepo;
+    }
+
+    public function index()
+    {
+        $permissions = $this->repo->getAllPermissions();
+        return view('Acl::Permission.index',compact('permissions'));
+    }
+
+
+    public function store(PermissionRequest $request)
+    {
+        $this->repo->createNewPermission($request);
+
+        return redirect(route('permissions.index'));
+    }
+
+    public function show($id)
+    {
+        //
+    }
+
+    public function edit(Permission $permission)
+    {
+        return view('Acl::Permission.edit',compact('permission'));
+    }
+
+
+    public function update(PermissionRequest $request, Permission $permission)
+    {
+
+        $this->repo->updatePermission($permission,$request);
+        return redirect(route('permissions.index'));
+    }
+
+
+    public function destroy(Permission $permission)
+    {
+        $this->repo->delete($permission);
+        return AjaxResponse::success();
+    }
+}

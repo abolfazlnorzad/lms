@@ -2,6 +2,8 @@
 return [
     'items' => [
         'dashboard'=>[],
+        'permission'=>[],
+        'role'=>[],
         'categories'=>[],
 
     ]
