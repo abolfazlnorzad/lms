@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Nrz\Acl\Http\Request\PermissionRequest;
 use Nrz\Acl\Model\Permission;
 use Nrz\Acl\Repo\PermissionRepo;
-use Nrz\Category\Response\AjaxResponse;
+use Nrz\Common\Response\AjaxResponse;
 
 class PermissionController extends Controller
 {

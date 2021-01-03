@@ -8,7 +8,7 @@ use Nrz\Acl\Http\Request\RoleRequest;
 use Nrz\Acl\Model\Role;
 use Nrz\Acl\Repo\PermissionRepo;
 use Nrz\Acl\Repo\RoleRepo;
-use Nrz\Category\Response\AjaxResponse;
+use Nrz\Common\Response\AjaxResponse;
 
 class RoleController extends Controller
 {

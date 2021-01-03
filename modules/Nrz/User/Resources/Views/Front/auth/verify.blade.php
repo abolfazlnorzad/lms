@@ -10,7 +10,10 @@
             </a>
             <div class="card-header">
                 <p class="activation-code-title">کد فرستاده شده به ایمیل <strong>{{request()->user()->email}}</strong>
-                    را وارد کنید</p>
+                    را وارد کنید
+                    <a href="{{route('users.profile')}}">ایمیل را اشتباه وارد کردید؟</a>
+                </p>
+
             </div>
             <div class="form-content form-content1">
                 <input required name="verify_code"

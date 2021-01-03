@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Nrz\Category\Response;
+namespace Nrz\Common\Response;
 
 
 class AjaxResponse

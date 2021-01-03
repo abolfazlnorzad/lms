@@ -4,6 +4,7 @@ return [
         'dashboard'=>[],
         'permission'=>[],
         'role'=>[],
+        'users'=>[],
         'categories'=>[],
 
     ]

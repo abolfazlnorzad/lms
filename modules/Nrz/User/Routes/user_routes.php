@@ -1,9 +1,23 @@
 <?php
+Route::group(
+    ['namespace' => 'Nrz\User\Http\Controllers', 'middleware' => ['web','auth']]
+    , function ($router) {
+    $router->post('users/{user}/addPermission', 'UserController@addPermission')->name('addPermission');
+    $router->delete('users/{user}/{permission}/removePermission', 'UserController@removePermission')->name('removePermission');
+    $router->patch('users/{user}/users.manualVerify', 'UserController@usersManualVerify')->name('users.manualVerify');
+    $router->post('users/photo', 'UserController@usersPhoto')->name('users.photo');
+    $router->get('user/profile', 'UserController@profile')->name('users.profile');
+    $router->patch('user/profile', 'UserController@UpdateProfile')->name('users.profile');
+    $router->get('tutors/{username}', 'UserController@viewProfile')->name('viewProfile');
 
+    $router->resource('users', 'UserController');
+
+    });
 
 Route::group(
     ['namespace' => 'Nrz\User\Http\Controllers', 'middleware' => 'web']
     , function ($router) {
+
 
 
     Route::post('email/verify', 'Auth\VerificationController@verify')->name('verification.verify');
@@ -20,7 +34,7 @@ Route::group(
     Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
     Route::post('/register', 'Auth\RegisterController@register')->name('register');
 
-     //reset password
+    //reset password
     Route::get('/password/reset', 'Auth\ForgotPasswordController@showVerifyCodeRequestForm')
         ->name('password.request');
 

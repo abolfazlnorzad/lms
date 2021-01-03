@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Nrz\Category\Repo\CategoryRepo;
-use Nrz\Category\Response\AjaxResponse;
+use Nrz\Common\Response\AjaxResponse;
 use Nrz\Course\Http\Requests\CourseRequest;
 use Nrz\Course\Model\Course;
 use Nrz\Course\Repo\CourseRepo;

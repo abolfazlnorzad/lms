@@ -3,6 +3,7 @@
 namespace Nrz\Course\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use Nrz\Acl\Model\Permission;
 use Nrz\User\Repo\UserRepo;
 
 class TeacherRule implements Rule
@@ -28,7 +29,8 @@ class TeacherRule implements Rule
     public function passes($attribute, $value)
     {
         $user = resolve(UserRepo::class)->findById($value);
-        if ($user->hasPermissionTo('teach')) {
+        $teachPermission = Permission::where('name', 'teach')->first();
+        if ($user->hasPermission($teachPermission)) {
             return true;
         }
         return false;

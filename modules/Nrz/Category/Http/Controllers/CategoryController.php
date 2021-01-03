@@ -12,7 +12,7 @@ use Illuminate\Routing\Redirector;
 use Nrz\Category\Http\Requests\CategoryRequest;
 use Nrz\Category\Model\Category;
 use Nrz\Category\Repo\CategoryRepo;
-use Nrz\Category\Response\AjaxResponse;
+use Nrz\Common\Response\AjaxResponse;
 
 class CategoryController extends Controller
 {

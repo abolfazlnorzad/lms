@@ -23,13 +23,11 @@ class CreateUsersTable extends Migration
             $table->boolean('is_staff')->default(0);
             $table->string('headline')->nullable();
             $table->text('bio')->nullable();
-            $table->string('website')->nullable();
-            $table->string('instagram')->nullable();
-            $table->string('facebook')->nullable();
-            $table->string('linkedin')->nullable();
-            $table->string('youtube')->nullable();
+            $table->string('ip')->nullable();
+            $table->string('card_number', 16)->nullable();
+            $table->string('shaba', 24)->nullable();
             $table->string('telegram')->nullable();
-            $table->enum('status', ['active', 'ban', 'inactive'])->default('active');
+            $table->enum('status', \Nrz\User\Model\User::$statuses)->default('active');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

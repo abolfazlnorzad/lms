@@ -181,6 +181,7 @@ return [
         Nrz\Course\Providers\CourseServiceProvider::class,
         Nrz\Media\Providers\MediaServiceProvider::class,
         Nrz\Acl\Providers\AclServiceProvider::class,
+        Nrz\Common\Providers\CommonServiceProvider::class,
 
     ],
 

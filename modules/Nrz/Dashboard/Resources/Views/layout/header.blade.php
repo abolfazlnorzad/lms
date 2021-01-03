@@ -13,6 +13,9 @@
                 </div>
             </div>
         </div>
-        <a href="" class="logout" title="خروج"></a>
+        <form id="frm-lg" method="post" action="{{route('logout')}}">
+            @csrf
+        </form>
+        <a onclick="event.preventDefault();document.getElementById('frm-lg').submit()" href="" class="logout" title="خروج"></a>
     </div>
 </div>

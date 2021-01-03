@@ -10,11 +10,25 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Nrz\Acl\Model\Permission;
 use Nrz\Acl\Model\Role;
-use Spatie\Permission\Traits\HasRoles;
+use Nrz\Course\Model\Course;
+use Nrz\Media\Models\Media;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
+
+
     use HasFactory, Notifiable;
+
+
+    const STATUS_ACTIVE = "active";
+    const STATUS_INACTIVE = "inactive";
+    const STATUS_BAN = "ban";
+    public static $statuses = [
+        self::STATUS_ACTIVE,
+        self::STATUS_INACTIVE,
+        self::STATUS_BAN
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -81,7 +95,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function hasRole($roles)
     {
-        return !! $roles->intersect($this->roles)->all();
+        return !!$roles->intersect($this->roles)->all();
     }
 
     public function hasPermission($permission)
@@ -89,6 +103,20 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->permissions->contains($permission) || $this->hasRole($permission->roles);
     }
 
+    public function image()
+    {
+        return $this->belongsTo(Media::class, 'image_id');
+    }
 
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'teacher_id');
+    }
+
+
+    public function profilePath()
+    {
+        return $this->username ? route('viewProfile',$this->username) :  route('viewProfile','username');
+    }
 
 }

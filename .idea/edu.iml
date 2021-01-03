@@ -11,6 +11,7 @@
       <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/modules/Nrz/Dashboard" isTestSource="false" packagePrefix="Nrz\Dashboard\" />
       <sourceFolder url="file://$MODULE_DIR$/modules/Nrz/Acl" isTestSource="false" packagePrefix="Nrz\Acl\" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/Nrz/Common" isTestSource="false" packagePrefix="Nrz\Common\" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/modules/Nrz/Course" isTestSource="false" packagePrefix="Nrz\Course\" />
       <sourceFolder url="file://$MODULE_DIR$/modules/Nrz/Category" isTestSource="false" packagePrefix="Nrz\Category\" />
