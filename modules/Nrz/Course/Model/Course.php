@@ -39,8 +39,15 @@ class Course extends Model
         return $this->belongsTo(User::class, 'teacher_id');
     }
 
+    public function seasons()
+    {
+        return $this->hasMany(Season::class);
+    }
 
-
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
 
 
 }

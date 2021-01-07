@@ -3,7 +3,9 @@ Route::group(
     ['namespace' => 'Nrz\User\Http\Controllers', 'middleware' => ['web','auth']]
     , function ($router) {
     $router->post('users/{user}/addPermission', 'UserController@addPermission')->name('addPermission');
+    $router->post('users/{user}/addRole', 'UserController@addRole')->name('addRole');
     $router->delete('users/{user}/{permission}/removePermission', 'UserController@removePermission')->name('removePermission');
+    $router->delete('users/{user}/{role}/removeRole', 'UserController@removeRole')->name('removeRole');
     $router->patch('users/{user}/users.manualVerify', 'UserController@usersManualVerify')->name('users.manualVerify');
     $router->post('users/photo', 'UserController@usersPhoto')->name('users.photo');
     $router->get('user/profile', 'UserController@profile')->name('users.profile');

@@ -9,7 +9,13 @@ use Nrz\Acl\Model\Role;
 class RoleRepo
 {
 
-    public function getAllRole()
+
+
+    public static function AllRole()
+    {
+        return Role::all();
+    }
+    public  function getAllRole()
     {
         return Role::all();
     }

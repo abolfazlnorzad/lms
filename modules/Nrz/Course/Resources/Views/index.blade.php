@@ -39,6 +39,7 @@
                 <th>ردیف</th>
                 <th>عنوان</th>
                 <th>مدرس دوره</th>
+                <th>جزییات</th>
                 <th>قیمت (تومان)</th>
 
                 <th>درصد مدرس</th>
@@ -55,6 +56,7 @@
                     <td><a href="">{{$course->priority}}</a></td>
                     <td><a href="">{{$course->title}}</a></td>
                     <td><a href="">{{$course->teacher->name}}</a></td>
+                    <td><a href="{{route('courses.details',$course->id)}}">مشاهده</a></td>
                     <td>{{$course->price}}</td>
                     <td>{{$course->percent}}</td>
                     <td class="confirmation_status">@lang($course->confirmation_status)</td>

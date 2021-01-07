@@ -13,6 +13,8 @@ class CourseServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         $this->loadRoutesFrom(__DIR__ . '/../Routes/courses_routes.php');
+        $this->loadRoutesFrom(__DIR__ . '/../Routes/season_routes.php');
+        $this->loadRoutesFrom(__DIR__ . '/../Routes/lessons_routes.php');
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Course');
         DatabaseSeeder::$seeders[] = RolePermissionTableSeeder::class;
         $this->loadJsonTranslationsFrom(__DIR__.'/../Resources/Lang');

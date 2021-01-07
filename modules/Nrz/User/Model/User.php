@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Nrz\Acl\Model\Permission;
 use Nrz\Acl\Model\Role;
 use Nrz\Course\Model\Course;
+use Nrz\Course\Model\Season;
 use Nrz\Media\Models\Media;
 
 
@@ -116,7 +117,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function profilePath()
     {
-        return $this->username ? route('viewProfile',$this->username) :  route('viewProfile','username');
+        return $this->username ? route('viewProfile', $this->username) : route('viewProfile', 'username');
+    }
+
+    public function seasons()
+    {
+        return $this->hasMany(Season::class);
     }
 
 }

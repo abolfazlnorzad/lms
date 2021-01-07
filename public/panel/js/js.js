@@ -242,7 +242,7 @@ function changeConfirmationStatus(event, route,message,status,field='confirmatio
         $.post(route, { _method: "patch", _token: $('meta[name="_token"]').attr('content') })
 
             .done(function (response) {
-                if (status='تاییده شده'){
+                if (status=='تاییده شده'){
                     $(event.target).closest('tr').find('td.'+field).html("<span class='text-success'>"+status+"</span>")
                 }else {
                     $(event.target).closest('tr').find('td.'+field).html("<span class='text-error'>"+status+"</span>")

@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Nrz\Acl\Model\Permission;
+use Nrz\Acl\Model\Role;
 use Nrz\Acl\Repo\PermissionRepo;
+use Nrz\Acl\Repo\RoleRepo;
 use Nrz\Common\Response\AjaxResponse;
 use Nrz\Media\Services\MediaFileService;
 use Nrz\User\Http\Requests\addPermissionRequest;
+use Nrz\User\Http\Requests\addRoleRequest;
 use Nrz\User\Http\Requests\UpdateProfileRequest;
 use Nrz\User\Http\Requests\UpdateUserRequest;
 use Nrz\User\Http\Requests\UserPhotoRequest;
@@ -31,8 +34,9 @@ class UserController extends Controller
     {
         $users = $this->repo->paginate();
         $permissions = PermissionRepo::getAllPermissions();
+        $roles =RoleRepo::AllRole();
 
-        return view('User::admin.index', compact('users', 'permissions'));
+        return view('User::admin.index', compact('users', 'permissions','roles'));
     }
 
 
@@ -75,7 +79,7 @@ class UserController extends Controller
     {
 
         if ($request->hasFile('image')) {
-            $request->request->add(['image_id' => MediaFileService::upload($request->file('image'))->id]);
+            $request->request->add(['image_id' => MediaFileService::publicUpload($request->file('image'))->id]);
         } else {
             $request->request->add(['image_id' => $user->image_id]);
 
@@ -103,10 +107,21 @@ class UserController extends Controller
         newFeedback('موفقیت آمیز', "عملیات با موفقیت انجام شد", 'success');
         return back();
     }
+    public function addRole(addRoleRequest $request, User $user)
+    {
+        $user->roles()->attach($request->role);
+        newFeedback('موفقیت آمیز', "عملیات با موفقیت انجام شد", 'success');
+        return back();
+    }
 
     public function removePermission(User $user, Permission $permission)
     {
         $user->permissions()->toggle($permission->id);
+        return AjaxResponse::success();
+    }
+    public function removeRole(User $user, Role $role)
+    {
+        $user->roles()->toggle($role->id);
         return AjaxResponse::success();
     }
 
@@ -120,7 +135,7 @@ class UserController extends Controller
 
     public function usersPhoto(UserPhotoRequest $request)
     {
-        $media = MediaFileService::upload($request->file('userPhoto'));
+        $media = MediaFileService::publicUpload($request->file('userPhoto'));
         if (auth()->user()->image) {
             auth()->user()->image->delete();
         }
@@ -138,7 +153,6 @@ class UserController extends Controller
 
     public function UpdateProfile(UpdateProfileRequest $request)
     {
-
         $this->repo->updateProfile($request);
         newFeedback('موفقیت آمیز', 'عملیات موفقیت آمیز بود', 'success');
         return back();

@@ -57,17 +57,22 @@ class CourseRepo
         ]);
     }
 
-    public function changeConfirmationStatus( $course, $status)
+    public function changeConfirmationStatus($course, $status)
     {
         return $course->update([
-            'confirmation_status'=>$status
+            'confirmation_status' => $status
         ]);
     }
 
-    public function changeStatus( $course, string $status)
+    public function changeStatus($course, string $status)
     {
         return $course->update([
-            'status'=>$status
+            'status' => $status
         ]);
+    }
+
+    public function findById($course)
+    {
+        return Course::where('id', $course)->first();
     }
 }

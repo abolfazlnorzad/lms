@@ -9,18 +9,16 @@ use Intervention\Image\Facades\Image;
 
 class ImageFileService
 {
+    use DefaultFileService;
     public static $sizes = ['300', '600'];
 
-    public static function upload($file)
+    public static function upload($file,$name,$dir)
     {
-        $name = uniqid();
         $extension = $file->getClientOriginalExtension();
         $filename = $name . '.' . $extension;
-        $dir = 'app\public\\';
         $file->move(storage_path($dir), $filename);
         $path = $dir . $filename;
         return self::resize(storage_path($path), $dir, $name, $extension);
-
 
     }
 
@@ -39,11 +37,6 @@ class ImageFileService
 
     }
 
-    public static function delete($media)
-    {
-        foreach ($media->files as $file) {
-            Storage::delete('/public/' . $file);
-        }
-    }
+
 
 }

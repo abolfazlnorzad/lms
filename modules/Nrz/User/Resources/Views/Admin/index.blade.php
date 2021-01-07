@@ -52,9 +52,17 @@
                             <td>
                                 <ul>
                                     @foreach($user->roles as $userRole)
-                                        <li class="deleteable-list-item">{{$userRole->label}}</li>
-                                        <li><a href="">افزودن نقش کاربری</a></li>
+                                        <li class="deleteable-list-item">
+                                            {{$userRole->label}}
+                                            <a href=""
+                                               onclick="deleteItem(event, '{{ route('removeRole', ['user'=>$user,'role'=>$userRole])}}','li')"
+                                               class="item-delete mlg-15 text-error" title="حذف"></a>
+                                        </li>
+
                                     @endforeach
+                                        <li><a
+                                                onclick="SetUserIdForAddRole({{$user->id}})"
+                                                rel="modal:open"    href="#add-role-frm">افزودن نقش کاربری</a></li>
                                 </ul>
                             </td>
                             <td>{{ $user->created_at }}</td>
@@ -86,6 +94,21 @@
                 <button class="btn btn-webamooz_net">افزودن</button>
             </form>
 
+
+            <form
+                id="add-role-frm" method="post" class="modal" action="{{route('addRole',0)}}">
+                @csrf
+                <select name="role" id="">
+                    <option>یک نقش کاربری را انتخاب کنید</option>
+                    @foreach($roles as $role)
+                        <option value="{{$role->id}}">{{$role->label}}</option>
+                    @endforeach
+                </select>
+                <br>
+                <button class="btn btn-webamooz_net">افزودن</button>
+            </form>
+
+
         </div>
     </div>
 @endsection
@@ -105,6 +128,13 @@
             $('#add-permission-frm').attr('action', action.replace('/0/', '/' + userId + '/'))
 
         }
+
+        function SetUserIdForAddRole(userId) {
+            let action = '{{route('addRole',0)}}'
+            $('#add-role-frm').attr('action', action.replace('/0/', '/' + userId + '/'))
+
+        }
+
         @include('Common::layout.feedback')
     </script>
 
