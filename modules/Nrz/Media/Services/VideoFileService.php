@@ -4,6 +4,8 @@
 namespace Nrz\Media\Services;
 
 
+use Nrz\Media\Models\Media;
+
 class VideoFileService
 {
     use DefaultFileService;
@@ -15,6 +17,9 @@ class VideoFileService
         $file->move(storage_path($dir), $filename);
         return ["video" =>$filename];
     }
-
+    public static function thumb(Media $media)
+    {
+        return url("/img/video-thumb.png");
+    }
 
 }

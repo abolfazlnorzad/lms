@@ -4,6 +4,8 @@
 namespace Nrz\Media\Services;
 
 
+use Nrz\Media\Models\Media;
+
 class ZipFileService
 {
     use DefaultFileService;
@@ -13,6 +15,11 @@ class ZipFileService
         $filename = $name . '.' . $extension;
         $file->move(storage_path($dir), $filename);
         return ["zip" =>$filename];
+    }
+
+    public static function thumb(Media $media)
+    {
+        return url("/img/zip-thumb.png");
     }
 
 }

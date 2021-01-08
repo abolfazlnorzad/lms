@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Nrz\Common\Response\AjaxResponse;
 use Nrz\Course\Http\Requests\SeasonRequest;
+use Nrz\Course\Model\Lesson;
 use Nrz\Course\Model\Season;
 use Nrz\Course\Repo\SeasonRepo;
 
@@ -47,7 +48,7 @@ class SeasonController extends Controller
 
     public function accept(Season $season)
     {
-        if ($this->repo->changeConfirmationStatus($season,Season::CONFIRMATION_STATUS_ACCEPTED)){
+        if ($this->repo->changeConfirmationStatus($season,Lesson::CONFIRMATION_STATUS_ACCEPTED)){
             return   AjaxResponse::success();
         }
         return AjaxResponse::error();
@@ -56,7 +57,7 @@ class SeasonController extends Controller
 
     public function reject(Season $season)
     {
-        if ($this->repo->changeConfirmationStatus($season,Season::CONFIRMATION_STATUS_REJECTED)){
+        if ($this->repo->changeConfirmationStatus($season,Lesson::CONFIRMATION_STATUS_REJECTED)){
             return   AjaxResponse::success();
         }
 
@@ -65,7 +66,7 @@ class SeasonController extends Controller
 
     public function lock(Season $season)
     {
-        if ($this->repo->changeStatus($season,Season::STATUS_LOCKED)){
+        if ($this->repo->changeStatus($season,Lesson::STATUS_LOCKED)){
             return   AjaxResponse::success();
         }
 
@@ -74,7 +75,7 @@ class SeasonController extends Controller
 
     public function unlock(Season $season)
     {
-        if ($this->repo->changeStatus($season,Season::STATUS_OPENED)){
+        if ($this->repo->changeStatus($season,Lesson::STATUS_OPENED)){
             return   AjaxResponse::success();
         }
 

@@ -13,7 +13,8 @@ class MediaFileService
     private static $dir;
     private static $isPrivate;
 
-    public static function privateUpload($file){
+    public static function privateUpload($file)
+    {
         self::$file = $file;
         self::$dir = "app\private\\";
         self::$isPrivate = true;
@@ -41,10 +42,10 @@ class MediaFileService
 
     public static function delete($media)
     {
-        foreach (config('mediaFile.mediaType') as $type => $service){
-                if ($media->type==$type){
-                    return $service['handler']::delete($media);
-                }
+        foreach (config('mediaFile.mediaType') as $type => $service) {
+            if ($media->type == $type) {
+                return $service['handler']::delete($media);
+            }
         }
 //        switch ($media->type) {
 //            case 'image':
@@ -59,18 +60,42 @@ class MediaFileService
         return strtolower($file->getClientOriginalExtension());
     }
 
-    private static function filenameGenerator(){
+    private static function filenameGenerator()
+    {
         return uniqid();
     }
-    private static function uploadByHandler( $service, $key)
+
+    private static function uploadByHandler($service, $key)
     {
         return Media::create([
             'user_id' => auth()->id(),
-            'files' => $service::upload(self::$file,self::filenameGenerator(),self::$dir),
+            'files' => $service::upload(self::$file, self::filenameGenerator(), self::$dir),
             'type' => $key,
             'filename' => self::$file->getClientOriginalName(),
             'is_private' => self::$isPrivate
         ]);
+
+    }
+
+    public static function thumb(Media $media)
+    {
+        foreach (config('mediaFile.mediaType') as $type => $service) {
+            if ($media->type == $type) {
+                return $service['handler']::thumb($media);
+            }
+        }
+    }
+
+    public static function getExtensionsForRequest()
+    {
+        $extensions = [];
+        foreach (config('mediaFile.mediaType') as   $service) {
+            foreach ($service['extensions'] as $ext) {
+                $extensions[] = $ext;
+            }
+        }
+
+        return implode(',', $extensions);
 
     }
 }

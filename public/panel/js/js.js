@@ -266,3 +266,77 @@ function changeConfirmationStatus(event, route,message,status,field='confirmatio
             })
     }
 }
+
+function acceptAllLessons(route) {
+    if (confirm("آیا از تایید همه جلسات این دوره اطمینان دارید؟")) {
+        $("<form action='"+ route +"' method='post'>" +
+            "<input type='hidden' name='_token' value='"+ $('meta[name="_token"]').attr('content') +"' /> "+
+            "<input type='hidden' name='_method' value='patch'> " +
+            "</form>").appendTo('body').submit();
+    }
+}
+function acceptMultiple(route) {
+    doMultipleAction(route, "آیا مطمئن هستید که می خواهید این سطرها را تایید کنید؟",'patch')
+}
+function rejectMultiple(route) {
+    doMultipleAction(route, "آیا مطمئن هستید که می خواهید این سطرها را رد کنید؟",'patch')
+}
+
+function deleteMultiple(route) {
+    doMultipleAction(route,"آیا مطمئن هستید که می خواهید این سطرها را حذف کنید؟" ,"delete")
+}
+function doMultipleAction(route,message, method){
+    var allVals = getSelectedItems();
+    if (allVals.length <= 0) {
+        alert("یک سطر انتخاب کنید");
+    } else {
+        WRN_PROFILE_DELETE = message;
+        var check = confirm(WRN_PROFILE_DELETE);
+        if (check == true) {
+            $("<form action='"+ route +"' method='post'>" +
+                "<input type='hidden' name='_token' value='"+ $('meta[name="_token"]').attr('content') +"' /> "+
+                "<input type='hidden' name='_method' value='"+ method +"'> " +
+                "<input type='hidden' name='ids' value='" + allVals + "'>" +
+                "</form>").appendTo('body').submit();
+        }
+    }
+}
+function getSelectedItems() {
+    var allVals = [];
+    $(".sub-checkbox:checked").each(function () {
+        allVals.push($(this).attr('data-id'));
+    });
+    return allVals;
+}
+
+$('.course__detial .item-delete').on('click', function (e) {
+    WRN_PROFILE_DELETE = "آیا مطمئن هستید که می خواهید این سطر را حذف کنید؟";
+    var check = confirm(WRN_PROFILE_DELETE);
+    if (check == true) {
+        $('table tr').filter("[data-row-id='" + $(this).attr('data-id') + "']").remove();
+    }
+});
+$(document).on('click touchstart', function (e) {
+    var serach__box = $('.t-header-search');
+    var input = $('.search-input__box');
+    if ($(e.target).is(serach__box) || serach__box.has(e.target).length == 1) {
+        $('.t-header-search-content').show();
+        $('.t-header-searchbox').addClass('open')
+    } else {
+        $('.t-header-search-content').hide();
+        $('.t-header-searchbox').removeClass('open')
+
+    }
+})
+$('.create-ads .ads-field-pn').on('click', function (e) {
+    $('.file-upload').hide()
+});
+$('.create-ads .ads-field-banner').on('click', function (e) {
+    $('.file-upload').show()
+});
+$('.discounts #discounts-field-2').on('click', function (e) {
+    $('.discounts .dropdown-select').addClass('is-active')
+});
+$('.discounts #discounts-field-1').on('click', function (e) {
+    $('.discounts .dropdown-select').removeClass('is-active')
+});

@@ -6,13 +6,15 @@ namespace Nrz\Media\Services;
 
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use Nrz\Media\Models\Media;
 
 class ImageFileService
 {
     use DefaultFileService;
+
     public static $sizes = ['300', '600'];
 
-    public static function upload($file,$name,$dir)
+    public static function upload($file, $name, $dir)
     {
         $extension = $file->getClientOriginalExtension();
         $filename = $name . '.' . $extension;
@@ -37,6 +39,9 @@ class ImageFileService
 
     }
 
-
+    public static function thumb(Media $media)
+    {
+        return "/storage/" . $media->files[300];
+    }
 
 }

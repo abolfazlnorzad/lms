@@ -10,11 +10,12 @@
             <p class="box__title">ایجاد درس جدید</p>
             <form action="{{ route('lessons.update', [$course->id, $lesson->id ]) }}" class="padding-30" method="post" enctype="multipart/form-data">
                 @csrf
+
                 @method('patch')
                 <x-input name="title" placeholder="عنوان درس *" type="text" value="{{ $lesson->title }}" required/>
                 <x-input type="text" name="slug" placeholder="نام انگلیسی درس اختیاری" class="text-left" value="{{ $lesson->slug }}" />
                 <x-input type="number" name="time" placeholder="مدت زمان جلسه *" class="text-left" value="{{ $lesson->time }}" required />
-                <x-input type="number" name="number" placeholder="شماره جلسه" class="text-left" value="{{ $lesson->number }}"/>
+                <x-input type="number" name="priority" placeholder="شماره جلسه" class="text-left" value="{{ $lesson->priority }}"/>
 
                 @if(count($seasons))
                     <x-select name="season_id" required>
@@ -28,11 +29,11 @@
                 <div class="w-50">
                     <p class="box__title">ایا این درس رایگان است ؟ * </p>
                     <div class="notificationGroup">
-                        <input id="lesson-upload-field-1" name="is_free" value="0" type="radio" @if(! $lesson->is_free) checked="" @endif>
+                        <input id="lesson-upload-field-1" name="is_free" value="0" type="radio" @if(! $lesson->free) checked="" @endif>
                         <label for="lesson-upload-field-1">خیر</label>
                     </div>
                     <div class="notificationGroup">
-                        <input id="lesson-upload-field-2" name="is_free" value="1" type="radio" @if($lesson->is_free) checked="" @endif>
+                        <input id="lesson-upload-field-2" name="free" value="1" type="radio" @if($lesson->free) checked="" @endif>
                         <label for="lesson-upload-field-2">بله</label>
                     </div>
                 </div>
