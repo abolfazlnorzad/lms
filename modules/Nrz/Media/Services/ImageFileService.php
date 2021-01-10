@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Nrz\Media\Models\Media;
 
-class ImageFileService
+class ImageFileService  extends DefaultFileServiceClass
 {
-    use DefaultFileService;
+
 
     public static $sizes = ['300', '600'];
 
@@ -42,6 +42,11 @@ class ImageFileService
     public static function thumb(Media $media)
     {
         return "/storage/" . $media->files[300];
+    }
+
+    public static function getFilename()
+    {
+        return (static::$media->is_private ? 'private/' : 'public/') . static::$media->files['original'];
     }
 
 }

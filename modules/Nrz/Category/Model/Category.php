@@ -28,4 +28,10 @@ class Category extends Model
         return ($this->parent_id) ? $this->parentCategory->title :'ندارد';
     }
 
+    public function path()
+    {
+
+        return route('categories.show', $this->id);
+    }
+
 }

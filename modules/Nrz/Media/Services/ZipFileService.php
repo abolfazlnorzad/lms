@@ -6,9 +6,9 @@ namespace Nrz\Media\Services;
 
 use Nrz\Media\Models\Media;
 
-class ZipFileService
+class ZipFileService extends DefaultFileServiceClass
 {
-    use DefaultFileService;
+
     public static function upload($file,$name,$dir)
     {
         $extension = $file->getClientOriginalExtension();
@@ -20,6 +20,12 @@ class ZipFileService
     public static function thumb(Media $media)
     {
         return url("/img/zip-thumb.png");
+    }
+
+    public static function getFilename()
+    {
+
+        return (static::$media->is_private ? 'private/' : 'public/') . static::$media->files['zip'];
     }
 
 }

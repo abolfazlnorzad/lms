@@ -44,4 +44,9 @@ class CategoryRepo
         return Category::query()->whereId($id)->first();
     }
 
+    public function tree()
+    {
+        return Category::query()->where('parent_id', null)->get();
+    }
+
 }

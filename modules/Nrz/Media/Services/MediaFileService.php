@@ -47,11 +47,6 @@ class MediaFileService
                 return $service['handler']::delete($media);
             }
         }
-//        switch ($media->type) {
-//            case 'image':
-//                ImageFileService::delete($media);
-//                break;
-//        }
     }
 
 
@@ -97,5 +92,14 @@ class MediaFileService
 
         return implode(',', $extensions);
 
+    }
+
+    public static function stream(Media $media)
+    {
+        foreach (config('mediaFile.mediaType') as $type => $service) {
+            if ($media->type == $type) {
+                return $service['handler']::stream($media);
+            }
+        }
     }
 }

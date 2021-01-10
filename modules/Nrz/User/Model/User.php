@@ -125,4 +125,23 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Season::class);
     }
 
+    public function hasAccessToCourse(Course $course)
+    {
+        // TODO Manage course can access to any Course can()
+        if ($this->id == $course->teacher_id ||$course->students->contains($this->id)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function purchases()
+    {
+        return $this->belongsToMany(Course::class,'course_user','user_id','course_id');
+    }
+
+    public function studentsCount()
+    {
+        return 0 ;
+    }
 }

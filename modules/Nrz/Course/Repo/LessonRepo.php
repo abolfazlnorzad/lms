@@ -55,11 +55,11 @@ class LessonRepo
         ]);
     }
 
-    public function changeConfirmationStatusById($ids,$status)
+    public function changeConfirmationStatusById($ids, $status)
     {
-      return Lesson::query()->whereIn('id',$ids)->update([
-          'confirmation_status'=>$status
-      ]);
+        return Lesson::query()->whereIn('id', $ids)->update([
+            'confirmation_status' => $status
+        ]);
     }
 
 
@@ -70,7 +70,7 @@ class LessonRepo
         ]);
     }
 
-    public function update( $lesson, $course,$values)
+    public function update($lesson, $course, $values)
     {
         return $lesson->update([
             "title" => $values->title,
@@ -83,10 +83,31 @@ class LessonRepo
         ]);
     }
 
-    public function acceptAll( $course)
+    public function acceptAll($course)
     {
-        return Lesson::where('course_id',$course->id)->update([
-            'confirmation_status'=>Lesson::CONFIRMATION_STATUS_ACCEPTED
+        return Lesson::where('course_id', $course->id)->update([
+            'confirmation_status' => Lesson::CONFIRMATION_STATUS_ACCEPTED
         ]);
+    }
+
+    public function getAcceptedLessons($courseId)
+    {
+        return Lesson::query()->where('course_id', $courseId)
+            ->where('confirmation_status', Lesson::CONFIRMATION_STATUS_ACCEPTED)
+            ->get();
+    }
+
+    public function getFirstLesson($courseId)
+    {
+        return Lesson::query()->where('course_id', $courseId)
+            ->where('confirmation_status', Lesson::CONFIRMATION_STATUS_ACCEPTED)
+            ->orderBy('priority', 'asc')->first();
+    }
+
+    public function getLesson($courseId, $lessonId)
+    {
+        return Lesson::query()->where('course_id', $courseId)
+            ->where('id', $lessonId)
+            ->first();
     }
 }

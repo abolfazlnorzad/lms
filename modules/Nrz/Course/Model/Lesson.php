@@ -2,9 +2,12 @@
 
 namespace Nrz\Course\Model;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\URL;
 use Nrz\Media\Models\Media;
+use Nrz\Media\Services\MediaFileService;
 
 class Lesson extends Model
 {
@@ -33,6 +36,16 @@ class Lesson extends Model
     public function media()
     {
         return $this->belongsTo(Media::class);
+    }
+
+    public function path()
+    {
+        return $this->course->path() . "?lesson=l-" . $this->id . "-" . $this->slug;
+    }
+
+    public function downloadLink()
+    {
+        return URL::temporarySignedRoute('media.download', now()->addDay(), ['media' => $this->media_id]);
     }
 
 }

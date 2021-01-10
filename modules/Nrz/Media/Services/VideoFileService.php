@@ -6,9 +6,9 @@ namespace Nrz\Media\Services;
 
 use Nrz\Media\Models\Media;
 
-class VideoFileService
+class VideoFileService  extends DefaultFileServiceClass
 {
-    use DefaultFileService;
+
     public static function upload($file,$name,$dir)
     {
 
@@ -22,4 +22,8 @@ class VideoFileService
         return url("/img/video-thumb.png");
     }
 
+    public static function getFilename()
+    {
+        return (static::$media->is_private ? 'private/' : 'public/') . static::$media->files['video'];
+    }
 }

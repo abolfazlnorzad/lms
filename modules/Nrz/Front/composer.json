@@ -1,0 +1,15 @@
+{
+    "name": "nrz/front",
+    "autoload": {
+        "psr-4": {
+            "Nrz\\Front\\" : "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "\\Nrz\\Front\\Providers\\FrontServiceProvider"
+            ]
+        }
+    }
+}
