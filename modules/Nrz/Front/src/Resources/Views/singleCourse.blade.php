@@ -10,14 +10,21 @@
                         <a href="" rel="nofollow noopener"><img src="img/ads/1440px/test.jpg" alt=""></a>
                     </div>
                     <div class="h-t">
-                        <h1 class="title">دوره ساخت پیام رسان تحت وب مشابه Telegram با Laravel و ReactJs و WebSocket به
-                            صورت
-                            Spa</h1>
+                        <h1 class="title">
+                         {{$course->title}}
+                        </h1>
                         <div class="breadcrumb">
                             <ul>
-                                <li><a href="" title="خانه">خانه</a></li>
-                                <li><a href="" title="برنامه نویسی">برنامه نویسی</a></li>
-                                <li><a href="" title="وب">وب</a></li>
+                                <li><a href="/" title="خانه">خانه</a></li>
+                                @if($course->category->parentCategory)
+                                    <li><a href="{{ $course->category->parentCategory->path() }}"
+                                           title="{{ $course->category->parentCategory->title }}">
+                                            {{ $course->category->parentCategory->title }}</a>
+                                    </li>
+                                @endif
+                                <li>
+                                    <a href="{{ $course->category->path() }}"
+                                       title="{{ $course->category->title }}">{{ $course->category->title }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -36,14 +43,13 @@
                             </div>
                             <div class="sell_course">
                                 <strong>قیمت :</strong>
-                                <del class="discount-Price">{{number_format($course->price)}}</del>
+                                <del class="discount-Price">{{$course->getFormattedPrice()}}</del>
                                 <p class="price">
-                        <span class="woocommerce-Price-amount amount">{{number_format($course->price)}}
+                        <span class="woocommerce-Price-amount amount">{{$course->getFormattedPrice()}}
                             <span class="woocommerce-Price-currencySymbol">تومان</span>
                         </span>
                                 </p>
                             </div>
-
                             @auth
                                 @if(auth()->id() == $course->teacher_id)
                                     <p class="mycourse ">شما مدرس این دوره هستید</p>
@@ -52,28 +58,21 @@
                                 @else
                                     <div class="sell_course">
                                         <strong>قیمت :</strong>
-                                        <del class="discount-Price">{{ number_format($course->price)}}</del>
+                                        <del class="discount-Price">{{$course->getFormattedPrice() }}</del>
                                         <p class="price">
-                        <span class="woocommerce-Price-amount amount">{{ number_format($course->price)}}
+                        <span class="woocommerce-Price-amount amount">{{ $course->getFormattedFinalPrice() }}
                             <span class="woocommerce-Price-currencySymbol">تومان</span>
                         </span>
                                         </p>
                                     </div>
-                                    <button class="btn buy">خرید دوره</button>
+                                    <button class="btn buy btn-buy">خرید دوره</button>
                                 @endif
-                            @else
-                                <div class="sell_course ">
-                                    <strong>قیمت :</strong>
-                                    <del class="discount-Price">{{ number_format($course->price)}}</del>
-                                    <p class="price">
-                        <span class="woocommerce-Price-amount amount">{{ number_format($course->price)}}
-                            <span class="woocommerce-Price-currencySymbol">تومان</span>
-                        </span>
-                                    </p>
-                                </div>
-                                <button class="btn buy">خرید دوره</button>
                             @endauth
+                            @guest()
 
+                                <small>جهت خرید دوره ابتدا در سایت لاگین کنید.</small>
+                                <a href="{{ route('login')}}" class="btn text-white w-100">ورود به سایت</a>
+                            @endguest
 
                             <div class="average-rating-sidebar">
                                 <div class="rating-stars">
@@ -203,9 +202,43 @@
                 </div>
             </div>
         </div>
-        <br>
-        <br>
-        <br>
+        <div id="Modal-buy" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p>کد تخفیف را وارد کنید</p>
+                    <div class="close">&times;</div>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{{ route("courses.buy", $course->id) }}">
+                        @csrf
+                        <div><input type="text" class="txt" placeholder="کد تخفیف را وارد کنید"></div>
+                        <button class="btn i-t ">اعمال</button>
+
+                        <table class="table text-center  table-bordered table-striped">
+                            <tbody>
+                            <tr>
+                                <th>قیمت کل دوره</th>
+                                <td> {{ $course->getFormattedPrice() }} تومان</td>
+                            </tr>
+                            <tr>
+                                <th>درصد تخفیف</th>
+                                <td>{{ $course->getDiscountPercent() }}%</td>
+                            </tr>
+                            <tr>
+                                <th> مبلغ تخفیف </th>
+                                <td class="text-red"> {{ $course->getDiscountAmount() }} تومان</td>
+                            </tr>
+                            <tr>
+                                <th> قابل پرداخت </th>
+                                <td class="text-blue"> {{ $course->getFormattedFinalPrice() }} تومان</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <button type="submit" class="btn btn i-t ">پرداخت آنلاین</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </main>
 @endsection
 

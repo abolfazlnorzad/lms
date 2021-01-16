@@ -6,6 +6,7 @@ namespace Nrz\Course\Repo;
 
 use Nrz\Course\Model\Course;
 use Nrz\Course\Model\Lesson;
+use Nrz\Payment\Models\Payment;
 
 class CourseRepo
 {
@@ -95,4 +96,17 @@ class CourseRepo
             ->where('confirmation_status', Lesson::CONFIRMATION_STATUS_ACCEPTED)
             ->count();
     }
+
+    public function addStudentToCourse(Course $course,$userId)
+    {
+      if (! $this->checkStudentInCourse($course,$userId)){
+          $course->students()->attach($userId);
+      }
+    }
+
+    public function checkStudentInCourse(Course $course,$userId)
+    {
+        return $course->students()->where("id",$userId)->first();
+    }
+
 }

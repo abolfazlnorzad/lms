@@ -17,7 +17,8 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
-        "nrz/front": "dev-main"
+        "nrz/front": "dev-main",
+        "nrz/payment": "dev-main"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -30,6 +31,10 @@
         {
             "type": "path",
             "url": "modules/Nrz/Front"
+        },
+        {
+            "type": "path",
+            "url": "modules/Nrz/Payment"
         }
     ],
     "config": {

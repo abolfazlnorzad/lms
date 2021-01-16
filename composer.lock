@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "384d12482735213dd1c3d729900c187b",
+    "content-hash": "f18867f9e20be2327f8c26f81ed8b644",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1915,6 +1915,31 @@
             "autoload": {
                 "psr-4": {
                     "Nrz\\Front\\": "src"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "nrz/payment",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "modules/Nrz/Payment",
+                "reference": "e3d4d18af34b29f0cef1f1bdf46c16577a22900c"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "\\Nrz\\Payment\\Providers\\PaymentServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nrz\\Payment\\": "src"
                 }
             },
             "transport-options": {
@@ -7580,7 +7605,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "nrz/front": 20
+        "nrz/front": 20,
+        "nrz/payment": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

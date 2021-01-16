@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Nrz\Category\Model\Category;
 use Nrz\Course\Repo\CourseRepo;
 use Nrz\Media\Models\Media;
+use Nrz\Payment\Models\Payment;
 use Nrz\User\Model\User;
 
 class Course extends Model
@@ -100,6 +101,36 @@ class Course extends Model
 
     public function students()
     {
-        return $this->belongsToMany(User::class,'course_user','course_id','user_id');
+        return $this->belongsToMany(User::class, 'course_user', 'course_id', 'user_id');
     }
+
+    public function getFormattedPrice()
+    {
+        return number_format($this->price);
+    }
+
+    public function getDiscountPercent()
+    {
+        return 0;
+    }
+
+    public function getDiscountAmount()
+    {
+        return 0;
+    }
+
+    public function getFinalPrice()
+    {
+        return $this->price - $this->getDiscountAmount();
+    }
+    public function getFormattedFinalPrice()
+    {
+         return number_format($this->price - $this->getDiscountAmount());
+    }
+
+    public function payments()
+    {
+        return $this->morphMany(Payment::class,'paymentable');
+    }
+
 }

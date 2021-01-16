@@ -12,7 +12,11 @@ use Nrz\Course\Model\Course;
 use Nrz\Course\Repo\CourseRepo;
 use Nrz\Media\Services\ImageFileService;
 use Nrz\Media\Services\MediaFileService;
+
+use Nrz\Payment\Gateways\Gateway;
+use Nrz\Payment\Services\PaymentService;
 use Nrz\User\Repo\UserRepo;
+
 
 class CourseController extends Controller
 {
@@ -53,27 +57,27 @@ class CourseController extends Controller
     }
 
 
-    public function edit(Course $course,UserRepo $userRepo, CategoryRepo $categoryRepo)
+    public function edit(Course $course, UserRepo $userRepo, CategoryRepo $categoryRepo)
     {
         $teachers = $userRepo->getTeachers();
         $categories = $categoryRepo->allCategory();
-        return view('Course::edit', compact('course','teachers', 'categories'));
+        return view('Course::edit', compact('course', 'teachers', 'categories'));
     }
 
 
-    public function update( Course $course ,CourseRequest $request)
+    public function update(Course $course, CourseRequest $request)
     {
 
-       if ($request->hasFile('image')){
+        if ($request->hasFile('image')) {
 
-           $request->request->add(['banner_id' => MediaFileService::publicUpload($request->file('image'))->id]);
-          $course->banner->delete();
-       }else{
+            $request->request->add(['banner_id' => MediaFileService::publicUpload($request->file('image'))->id]);
+            $course->banner->delete();
+        } else {
 
-           $request->request->add(['banner_id'=>$course->banner_id]);
-       }
+            $request->request->add(['banner_id' => $course->banner_id]);
+        }
 
-        $this->repo->update($request,$course);
+        $this->repo->update($request, $course);
         return redirect(route('courses.index'));
     }
 
@@ -87,8 +91,8 @@ class CourseController extends Controller
 
     public function accept(Course $course)
     {
-        if ($this->repo->changeConfirmationStatus($course,Course::CONFIRMATION_STATUS_ACCEPTED)){
-         return   AjaxResponse::success();
+        if ($this->repo->changeConfirmationStatus($course, Course::CONFIRMATION_STATUS_ACCEPTED)) {
+            return AjaxResponse::success();
         }
 
         return AjaxResponse::error();
@@ -97,8 +101,8 @@ class CourseController extends Controller
 
     public function reject(Course $course)
     {
-        if ($this->repo->changeConfirmationStatus($course,Course::CONFIRMATION_STATUS_REJECTED)){
-            return   AjaxResponse::success();
+        if ($this->repo->changeConfirmationStatus($course, Course::CONFIRMATION_STATUS_REJECTED)) {
+            return AjaxResponse::success();
         }
 
         return AjaxResponse::error();
@@ -106,8 +110,8 @@ class CourseController extends Controller
 
     public function lock(Course $course)
     {
-        if ($this->repo->changeStatus($course,Course::STATUS_LOCKED)){
-            return   AjaxResponse::success();
+        if ($this->repo->changeStatus($course, Course::STATUS_LOCKED)) {
+            return AjaxResponse::success();
         }
 
         return AjaxResponse::error();
@@ -116,8 +120,67 @@ class CourseController extends Controller
     public function details(Course $course)
     {
 
-        return view('Course::details',compact('course'));
+        return view('Course::details', compact('course'));
 
+    }
+
+    public function buy(Course $course)
+    {
+
+        if (!$this->courseCanBePurchased($course)) {
+            return back();
+        }
+
+        if (!$this->authUserCanPurchaseCourse($course)) {
+            return back();
+        }
+
+        $amount = $course->getFinalPrice();
+        if ($amount<=0){
+            $this->repo->addStudentToCourse($course,auth()->id());
+            newFeedback(" موفقیت آمیز","خرید دوره موفقیت آمیز","success");
+            return redirect($course->path());
+        }
+        $payment = PaymentService::generate($amount, $course, auth()->user());
+
+        resolve(Gateway::class)->redirect();
+
+    }
+
+    private function courseCanBePurchased(Course $course)
+    {
+        if ($course->type == Course::TYPE_FREE) {
+            newFeedback("عملیات ناموفق", "دوره های رایگان قابل خریداری نیستند!", "error");
+            return false;
+        }
+        if ($course->status == Course::STATUS_LOCKED) {
+            newFeedback("عملیات ناموفق", "این دوره قفل شده است و قعلا قابل خریداری نیست!", "error");
+            return false;
+        }
+
+        if ($course->confirmation_status != Course::CONFIRMATION_STATUS_ACCEPTED) {
+            newFeedback("عملیات ناموفق", "دوره ی انتخابی شما هنوز تایید نشده است!", "error");
+            return false;
+        }
+
+
+        return true;
+    }
+
+    private function authUserCanPurchaseCourse(Course $course)
+    {
+        if (auth()->id() == $course->teacher_id) {
+            newFeedback("عملیات ناموفق", "شما مدرس این دوره هستید.", "error");
+            return false;
+        }
+
+        if (auth()->user()->hasAccessToCourse($course)) {
+            newFeedback("عملیات ناموفق", "شما به دوره دسترسی دارید.", "error");
+            return false;
+        }
+
+
+        return true;
     }
 
 
