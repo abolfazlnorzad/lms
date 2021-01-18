@@ -4,6 +4,7 @@ namespace Nrz\Payment\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Nrz\User\Model\User;
 
 class Payment extends Model
 {
@@ -28,5 +29,10 @@ class Payment extends Model
     public function paymentable()
     {
         return $this->morphTo("paymentable");
+    }
+
+    public function buyer()
+    {
+        return $this->belongsTo(User::class, "buyer_id");
     }
 }

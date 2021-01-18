@@ -84,29 +84,35 @@ class CourseRepo
             ->latest()->take(8)->get();
     }
 
-    public function getDuration( $courseId)
+    public function getDuration($courseId)
     {
-        return Lesson::where('course_id',$courseId)->where('confirmation_status', Lesson::CONFIRMATION_STATUS_ACCEPTED)
+        return Lesson::where('course_id', $courseId)->where('confirmation_status', Lesson::CONFIRMATION_STATUS_ACCEPTED)
             ->sum('time');
     }
 
     public function getLessonCount($id)
     {
-        return Lesson::query()->where('course_id',$id)
+        return Lesson::query()->where('course_id', $id)
             ->where('confirmation_status', Lesson::CONFIRMATION_STATUS_ACCEPTED)
             ->count();
     }
 
-    public function addStudentToCourse(Course $course,$userId)
+    public function addStudentToCourse(Course $course, $userId)
     {
-      if (! $this->checkStudentInCourse($course,$userId)){
-          $course->students()->attach($userId);
-      }
+        if (!$this->checkStudentInCourse($course, $userId)) {
+            $course->students()->attach($userId);
+        }
     }
 
-    public function checkStudentInCourse(Course $course,$userId)
+    public function checkStudentInCourse(Course $course, $userId)
     {
-        return $course->students()->where("id",$userId)->first();
+        return $course->students()->where("id", $userId)->first();
+    }
+
+    public function getCourseLessonsLink(Course $course)
+    {
+        return Lesson::query()->where('course_id', $course->id)
+            ->where('confirmation_status', Lesson::CONFIRMATION_STATUS_ACCEPTED)->get();
     }
 
 }

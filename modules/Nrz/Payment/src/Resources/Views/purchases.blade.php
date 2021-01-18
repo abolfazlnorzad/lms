@@ -17,9 +17,9 @@
             @foreach($payments as $payment)
             <tr>
                 <td><a href="{{ $payment->paymentable->path() }}" target="_blank">{{ $payment->paymentable->title }}</a></td>
-                <td>{{ createFromCarbon($payment->created_at) }}</td>
+                <td>{{ jdate($payment->created_at) }}</td>
                 <td>{{ number_format($payment->amount) }} تومان</td>
-                <td class="{{ $payment->status == \Cyaxaress\Payment\Models\Payment::STATUS_SUCCESS  ? "text-success" :"text-error" }}">@lang($payment->status)</td>
+                <td class="{{ $payment->status == \Nrz\Payment\Models\Payment::STATUS_SUCCESS  ? "text-success" :"text-error" }}">@lang($payment->status)</td>
             </tr>
             @endforeach
             </tbody>

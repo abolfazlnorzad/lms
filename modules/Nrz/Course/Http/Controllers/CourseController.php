@@ -136,9 +136,9 @@ class CourseController extends Controller
         }
 
         $amount = $course->getFinalPrice();
-        if ($amount<=0){
-            $this->repo->addStudentToCourse($course,auth()->id());
-            newFeedback(" موفقیت آمیز","خرید دوره موفقیت آمیز","success");
+        if ($amount <= 0) {
+            $this->repo->addStudentToCourse($course, auth()->id());
+            newFeedback(" موفقیت آمیز", "خرید دوره موفقیت آمیز", "success");
             return redirect($course->path());
         }
         $payment = PaymentService::generate($amount, $course, auth()->user());
@@ -183,5 +183,9 @@ class CourseController extends Controller
         return true;
     }
 
+    public function downloadLinks(Course $course)
+    {
+        return $course->downloadLinks();
+    }
 
 }

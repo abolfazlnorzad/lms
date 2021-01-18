@@ -1,12 +1,20 @@
 <div class="episodes-list">
     <div class="episodes-list--title">
         فهرست جلسات
-        <span>دریافت همه لینک های دانلود</span>
+        @if(auth()->check() && auth()->user()->hasAccessToCourse($lesson->course))
+            <span>
+            <a href="{{route('courses.downloadLinks',$course)}}">
+                دریافت همه لینک های دانلود
+            </a>
+        </span>
+
+        @endif
 
     </div>
     <div class="episodes-list-section">
         @foreach($lessons as $lesson)
-            <div class="episodes-list-item {{auth()->check() && auth()->check() && auth()->user()->hasAccessToCourse($lesson->course) ? '' : 'lock' }}">
+            <div
+                class="episodes-list-item {{auth()->check()  &&( auth()->user()->hasAccessToCourse($lesson->course) || auth()->user()->AccessToFreeLesson($lesson))? '' : 'lock' }}">
                 <div class="section-right">
                     <span class="episodes-list-number">{{ $lesson->priority }}</span>
                     <div class="episodes-list-title">
@@ -18,9 +26,13 @@
                         <div class="episodes-list-details">
                             <span class="detail-type">@lang($lesson->type)</span>
                             <span class="detail-time">{{ $lesson->time }} دقیقه</span>
-                            <a class="detail-download">
-                                <i class="icon-download"></i>
-                            </a>
+                            @auth()
+                                @if( auth()->user()->hasAccessToCourse($lesson->course) || auth()->user()->AccessToFreeLesson($lesson))
+                                    <a class="detail-download" href="{{$lesson->downloadLink()}}">
+                                        <i class="icon-download"></i>
+                                    </a>
+                                @endif
+                            @endauth
                         </div>
                     </div>
                 </div>

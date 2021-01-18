@@ -123,14 +123,25 @@ class Course extends Model
     {
         return $this->price - $this->getDiscountAmount();
     }
+
     public function getFormattedFinalPrice()
     {
-         return number_format($this->price - $this->getDiscountAmount());
+        return number_format($this->price - $this->getDiscountAmount());
     }
 
     public function payments()
     {
-        return $this->morphMany(Payment::class,'paymentable');
+        return $this->morphMany(Payment::class, 'paymentable');
+    }
+
+    public function downloadLinks()
+    {
+        $lessons = resolve(CourseRepo::class)->getCourseLessonsLink($this);
+        $links = [];
+        foreach ($lessons as $lesson) {
+            $links[] = $lesson->downloadLink();
+        }
+        return implode("<br>",$links);
     }
 
 }

@@ -153,7 +153,6 @@
                                 </div>
                             </div>
                             <div class="job-content">
-                                <!--                        <p>عاشق برنامه نویسی</p>-->
                             </div>
                         </div>
                         <div class="short-link">

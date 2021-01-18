@@ -8,11 +8,14 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Nrz\Acl\Model\Permission;
 use Nrz\Acl\Model\Role;
 use Nrz\Course\Model\Course;
+use Nrz\Course\Model\Lesson;
 use Nrz\Course\Model\Season;
 use Nrz\Media\Models\Media;
+use Nrz\Payment\Models\Payment;
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -127,21 +130,45 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function hasAccessToCourse(Course $course)
     {
+
         // TODO Manage course can access to any Course can()
-        if ($this->id == $course->teacher_id ||$course->students->contains($this->id)) {
+        if (
+            $this->id == $course->teacher_id
+            || $course->students->contains($this->id)
+        ) {
             return true;
         } else {
             return false;
         }
     }
 
+    public function AccessToFreeLesson(Lesson $lesson)
+    {
+        if ($lesson->free) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class,"buyer_id");
+
+    }
+
     public function purchases()
     {
-        return $this->belongsToMany(Course::class,'course_user','user_id','course_id');
+        return $this->belongsToMany(Course::class, 'course_user', 'user_id', 'course_id');
     }
 
     public function studentsCount()
     {
-        return 0 ;
+
+        return DB::table('courses')
+//            ->select('course_id')
+            ->where('teacher_id', $this->id)
+            ->join("course_user", "courses.id", "=", "course_user.course_id")
+            ->count();
     }
 }

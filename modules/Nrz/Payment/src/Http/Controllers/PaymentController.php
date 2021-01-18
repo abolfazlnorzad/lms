@@ -4,7 +4,9 @@ namespace Nrz\Payment\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
+use Morilog\Jalali\Jalalian;
 use Nrz\Payment\Events\PaymentWasSuccessful;
 use Nrz\Payment\Gateways\Gateway;
 use Nrz\Payment\Models\Payment;
@@ -12,6 +14,31 @@ use Nrz\Payment\Repositories\PaymentRepo;
 
 class PaymentController extends Controller
 {
+
+    public function index(PaymentRepo $paymentRepo, Request $request)
+    {
+
+        $payments = $paymentRepo
+            ->searchEmail($request->email)
+            ->searchAmount($request->amount)
+            ->searchInvoiceId($request->invoice_id)
+            ->searchAfterDate(createDateFromJalali($request->start_date))
+            ->searchBeforeDate(createDateFromJalali($request->end_date))
+            ->paginate();
+        $totalSellIn30Days = $paymentRepo->totalSellInNDays(-30);
+        $totalSellSiteIn30Days = $paymentRepo->totalSellSiteNDays(-30);
+        $totalSell = $paymentRepo->totalSellInNDays();
+        $totalSiteSell = $paymentRepo->totalSellSiteNDays();
+        $past30Days = CarbonPeriod::create(now()->addDays(-30), now());
+        return view('Payment::index', compact('payments',
+            'totalSellIn30Days',
+            'totalSellSiteIn30Days',
+            'totalSell',
+            'totalSiteSell',
+            "past30Days",
+            "paymentRepo",
+        ));
+    }
 
     public function callback(Request $request)
     {
@@ -35,6 +62,13 @@ class PaymentController extends Controller
             $paymentRepo->changeStatus($payment, Payment::STATUS_SUCCESS);
         }
         return redirect()->to($payment->paymentable->path());
+    }
+
+    public function purchases()
+    {
+        $payments = auth()->user()->payments()->with("paymentable")->paginate();
+        return view("Payment::purchases", compact("payments"));
+
     }
 
 }
