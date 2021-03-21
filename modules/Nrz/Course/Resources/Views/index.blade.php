@@ -9,7 +9,7 @@
             <a class="tab__item is-active" href="courses.html">لیست دوره ها</a>
             <a class="tab__item" href="approved.html">دوره های تایید شده</a>
             <a class="tab__item" href="new-course.html">دوره های تایید نشده</a>
-            <a class="tab__item" href="create-new-course.html">ایجاد دوره جدید</a>
+            <a class="tab__item" href="{{route('courses.create')}}">ایجاد دوره جدید</a>
         </div>
     </div>
     <div class="bg-white padding-20">

@@ -166,7 +166,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
 
         return DB::table('courses')
-//            ->select('course_id')
             ->where('teacher_id', $this->id)
             ->join("course_user", "courses.id", "=", "course_user.course_id")
             ->count();

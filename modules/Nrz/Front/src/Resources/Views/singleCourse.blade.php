@@ -138,7 +138,7 @@
                                 <a href="{{route('singleTutor',$course->teacher->username)}}">
                                     <img alt="{{$course->teacher->name}}"
                                          class="img-fluid lazyloaded"
-                                         src="{{$course->teacher->image->thumb}}"
+                                         src="{{$course->teacher->image->thumb ?? "/img/profile.jpg"}}"
                                          loading="lazy">
                                     <noscript>
                                         <img class="img-fluid" src="img/profile.jpg" alt="{{$course->teacher->name}}">

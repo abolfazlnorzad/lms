@@ -10,7 +10,7 @@
         <div class="card-img"><img src="{{$courseItem->banner->thumb}}" alt="{{$courseItem->title}}"></div>
         <div class="card-title"><h2>{{$courseItem->title}}</h2></div>
         <div class="card-body">
-            <img src="{{$courseItem->teacher->image->thumb}}" alt="{{$courseItem->teacher->name}}">
+            <img src="{{$courseItem->teacher->image->thumb ?? "/img/profile.jpg"}}" alt="{{$courseItem->teacher->name}}">
             <span> {{$courseItem->teacher->name}}</span>
         </div>
         <div class="card-details">
