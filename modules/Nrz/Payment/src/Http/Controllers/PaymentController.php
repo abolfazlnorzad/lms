@@ -37,6 +37,7 @@ class PaymentController extends Controller
             'totalSiteSell',
             "past30Days",
             "paymentRepo",
+
         ));
     }
 

@@ -16,6 +16,7 @@ use Nrz\Course\Model\Lesson;
 use Nrz\Course\Model\Season;
 use Nrz\Media\Models\Media;
 use Nrz\Payment\Models\Payment;
+use Nrz\Payment\Models\Settlement;
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -153,7 +154,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function payments()
     {
-        return $this->hasMany(Payment::class,"buyer_id");
+        return $this->hasMany(Payment::class, "buyer_id");
 
     }
 
@@ -170,4 +171,10 @@ class User extends Authenticatable implements MustVerifyEmail
             ->join("course_user", "courses.id", "=", "course_user.course_id")
             ->count();
     }
+
+    public function settlements()
+    {
+        return $this->hasMany(Settlement::class);
+    }
+
 }

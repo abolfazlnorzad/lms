@@ -16,7 +16,7 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('buyer_id')->constrained('users','id');
-            $table->foreignId('seller_id')->nullable();
+            $table->foreignId('seller_id')->nullable()->constrained("users","id");
             $table->foreignId('paymentable_id');
             $table->string('paymentable_type');
             $table->string('amount', 10);

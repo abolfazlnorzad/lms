@@ -10,6 +10,7 @@ class PaymentService
 {
     public static function generate($amount, $paymntable, User $user)
     {
+
         if ($amount <= 0 || is_null($user->id) || is_null($paymntable->id)) return false;
         $gateway = resolve(\Nrz\Payment\Gateways\Gateway::class);
         $invoiceId = $gateway->request($amount,$paymntable->title);
@@ -23,8 +24,10 @@ class PaymentService
             $site_share = $amount - $seller_share;
         }
 
+
         return resolve(PaymentRepo::class)->store([
             'buyer_id' => $user->id,
+            "seller_id"=>$paymntable->teacher_id,
             'paymentable_id' => $paymntable->id,
             'paymentable_type' => get_class($paymntable),
             'amount' => $amount,

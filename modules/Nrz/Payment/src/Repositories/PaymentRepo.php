@@ -43,10 +43,11 @@ class PaymentRepo
         }
         return $this;
     }
+
     public function searchAfterDate($date)
     {
         if (!is_null($date)) {
-           $this->query->whereDate("created_at",">=",$date);
+            $this->query->whereDate("created_at", ">=", $date);
         }
         return $this;
     }
@@ -54,10 +55,11 @@ class PaymentRepo
     public function searchBeforeDate($date)
     {
         if (!is_null($date)) {
-            $this->query->whereDate("created_at","<=",$date);
+            $this->query->whereDate("created_at", "<=", $date);
         }
         return $this;
     }
+
     public function paginate()
     {
         return $this->query->paginate();
@@ -68,6 +70,7 @@ class PaymentRepo
 
         return Payment::create([
             'buyer_id' => $data['buyer_id'],
+            "seller_id" => $data['seller_id'],
             'paymentable_id' => $data['paymentable_id'],
             'paymentable_type' => $data['paymentable_type'],
             'amount' => $data['amount'],
@@ -137,7 +140,60 @@ class PaymentRepo
         return $this->queryForCalcSellDay($day)->sum("site_share");
     }
 
+    protected function getTeacherQuery($userId)
+    {
+        return $this->query->where("seller_id", $userId)
+            ->where("status", Payment::STATUS_SUCCESS);
+    }
 
+    public function accountBalance($userId)
+    {
+        return $this->getTeacherQuery($userId)->sum("seller_share");
+    }
+
+    public function totalCourseSales($userId)
+    {
+        return $this->getTeacherQuery($userId)
+            ->sum("amount");
+    }
+
+    public function totalSiteWage($userId)
+    {
+        return $this->getTeacherQuery($userId)
+            ->sum("site_share");
+    }
+
+    public function todayBenefit($userId, $date)
+    {
+        return $this->getTeacherQuery($userId)
+            ->whereDate("created_at", $date)->sum("seller_share");
+    }
+
+    public function last30DaysBenefit($userId, $startDay, $endDay)
+    {
+        return $this->getTeacherQuery($userId)
+            ->whereDate("created_at", "<= ", $startDay)
+            ->whereDate("created_at", ">=", $endDay)
+            ->sum("seller_share");
+    }
+
+    public function todaySuccessPaymentsCount($userId, $date)
+    {
+        return $this->getTeacherQuery($userId)
+            ->whereDate("created_at", $date)->count();
+    }
+
+    public function todaySuccessPaymentsTotal($userId, $date)
+    {
+        return $this->getTeacherQuery($userId)
+            ->whereDate("created_at", $date)->sum("seller_share");
+    }
+
+    public function paymentBySellerId($userId)
+    {
+        return $this->query->where("seller_id", $userId)
+            ->paginate(15);
+    }
 
 
 }

@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('username', 40)->nullable();
             $table->boolean('is_admin')->default(0);
             $table->boolean('is_staff')->default(0);
+            $table->bigInteger("balance")->default(0);
             $table->string('headline')->nullable();
             $table->text('bio')->nullable();
             $table->string('ip')->nullable();
