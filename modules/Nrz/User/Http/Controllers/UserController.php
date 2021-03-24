@@ -163,4 +163,10 @@ class UserController extends Controller
 
     }
 
+
+    public function info(User $user)
+    {
+        return view("User::Admin.info",compact('user'));
+    }
+
 }

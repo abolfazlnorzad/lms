@@ -30,7 +30,7 @@ class SettlementRepo
 
     public function paginate()
     {
-        return $this->query->paginate(15);
+        return $this->query->latest()->paginate(15);
     }
 
     public function settled()
@@ -49,8 +49,24 @@ class SettlementRepo
                 "cart" => $data['from']['cart'],
                 "name" => $data['from']['name']
             ],
-            "status"=>$data['status']
+            "status" => $data['status']
         ]);
+    }
+
+
+    public function checkTeacherHasPendingSettlement($userId)
+    {
+        return $this->query->where("user_id", $userId)
+            ->where("status", Settlement::STATUS_PENDING)
+            ->latest()
+            ->first();
+    }
+
+    public function lastSattlement($userId)
+    {
+        return $this->query->where("user_id", $userId)
+            ->latest()
+            ->first();
     }
 
 }

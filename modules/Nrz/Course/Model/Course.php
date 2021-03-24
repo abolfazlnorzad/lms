@@ -133,6 +133,10 @@ class Course extends Model
     {
         return $this->morphMany(Payment::class, 'paymentable');
     }
+    public function payment()
+    {
+        return $this->payments()->latest()->first();
+    }
 
     public function downloadLinks()
     {

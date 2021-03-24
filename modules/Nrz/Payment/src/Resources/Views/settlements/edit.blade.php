@@ -28,3 +28,8 @@
         </form>
     </div>
 @endsection
+@section('js')
+    <script>
+        @include('Common::layout.feedback')
+    </script>
+@endsection

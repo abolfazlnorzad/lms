@@ -20,14 +20,22 @@ class SettlementController extends Controller
     }
 
 
-    public function create()
+    public function create(SettlementRepo $repo)
     {
+        if ($repo->checkTeacherHasPendingSettlement(auth()->id())) {
+            newFeedback("ناموفق", "شما یک درخواست در حال انتظار دارید", "error");
+            return redirect(route("settlements.index"));
+        }
         return view("Payment::settlements.create");
     }
 
 
     public function store(SettlementRequest $request, SettlementRepo $repo)
     {
+        if ($repo->checkTeacherHasPendingSettlement(auth()->id())) {
+            newFeedback("ناموفق", "شما یک درخواست در حال انتظار دارید", "error");
+            return redirect(route("settlements.index"));
+        }
         $repo->store([
             "cart" => $request->cart,
             "name" => $request->name,
@@ -39,14 +47,19 @@ class SettlementController extends Controller
         return redirect(route("settlements.index"));
     }
 
-    public function edit(Settlement $settlement)
+    public function edit(Settlement $settlement, SettlementRepo $repo)
     {
+        $lastSattlement = $repo->lastSattlement($settlement->user_id);
+        if ($settlement->id != $lastSattlement->id) {
+            newFeedback("ناموفق", "فقط آخرین درخواست تسویه حساب هر مدرس قابل ویرایش است", "error");
+            return redirect(route("settlements.index"));
+        }
         return view("Payment::settlements.edit", compact('settlement'));
     }
 
     public function update(SettlementRequest $request, Settlement $settlement)
     {
-        SettlementService::update($settlement,$request->all());
+        SettlementService::update($settlement, $request->all());
         return redirect(route("settlements.index"));
     }
 

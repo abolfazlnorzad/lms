@@ -36,7 +36,7 @@ class SettlementRequest extends FormRequest
             return [
                 "name" => "required|string",
                 "cart" => "required|numeric",
-                "amount" => "required|numeric|max:" . auth()->user()->balance,
+                "amount" => "required|numeric|min:10000|max:" . auth()->user()->balance,
             ];
         }
     }

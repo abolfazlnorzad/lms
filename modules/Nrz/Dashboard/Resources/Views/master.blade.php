@@ -16,4 +16,6 @@
 </body>
 
 @include('Dashboard::layout.foot')
+
+
 </html>

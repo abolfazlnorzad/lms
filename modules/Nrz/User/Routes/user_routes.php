@@ -10,6 +10,7 @@ Route::group(
     $router->post('users/photo', 'UserController@usersPhoto')->name('users.photo');
     $router->get('user/profile', 'UserController@profile')->name('users.profile');
     $router->patch('user/profile', 'UserController@UpdateProfile')->name('users.profile');
+    $router->get('user/{user}/info', 'UserController@info')->name('users.info');
     $router->get('tutors/{username}', 'UserController@viewProfile')->name('viewProfile');
 
     $router->resource('users', 'UserController');

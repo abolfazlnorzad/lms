@@ -18,13 +18,17 @@ class SettlementService
             $settlement->user->balance += $data['amount'];
             $settlement->user->save();
         }
+        if ($settlement->user->balance < $data['amount']) {
+            newFeedback("ناموفق", "عملیات ناموفق بود", "error");
+            return;
+        }
         if (in_array($settlement->status, [Settlement::STATUS_REJECTED, Settlement::STATUS_CANCELED]
-            ) && in_array($data['status'], [Settlement::STATUS_SETTLED, Settlement::STATUS_PENDING])){
+            ) && in_array($data['status'], [Settlement::STATUS_SETTLED, Settlement::STATUS_PENDING])) {
             $settlement->user->balance -= $data['amount'];
             $settlement->user->save();
         }
 
-            newFeedback("موفقیت آمیز", "با موفقیت ویرایش گردید", "success");
+        newFeedback("موفقیت آمیز", "با موفقیت ویرایش گردید", "success");
         return $repo->update($settlement, $data);
     }
 
