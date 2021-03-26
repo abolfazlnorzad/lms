@@ -28,7 +28,8 @@ class CourseServiceProvider extends ServiceProvider
         config()->set('sidebar.items.courses', [
             'icon' => 'i-courses',
             'title' => 'دوره ها',
-            'url' => route('courses.index')
+            'url' => route('courses.index'),
+            'permission'=>'teach'
         ]);
     }
 }

@@ -34,12 +34,14 @@ class PaymentServiceProvider extends ServiceProvider
             "icon" => "i-transactions",
             "title" => "تراکنش ها",
             "url" => route('payments.index'),
+            'permission'=>'isAdmin'
         ]);
 
         config()->set('sidebar.items.my-purchases', [
             "icon" => "i-my__purchases",
             "title" => "خریدهای من",
             "url" => route('purchases.index'),
+            'permission'=>null
         ]);
 
         $this->app->booted(function (){
@@ -47,11 +49,13 @@ class PaymentServiceProvider extends ServiceProvider
                 "icon" => "i-checkouts",
                 "title" => " تسویه حساب ها",
                 "url" => route('settlements.index'),
+                'permission'=>'isAdmin'
             ]);
             config()->set('sidebar.items.settlementsRequest', [
                 "icon" => "i-checkout__request",
                 "title" => "درخواست تسویه",
                 "url" => route('settlements.create'),
+                'permission'=>'teach'
             ]);
 
         });

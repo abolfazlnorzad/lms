@@ -22,14 +22,15 @@ class AclServiceProvider extends \Illuminate\Support\ServiceProvider
             'icon' => "i-role-permissions",
             'title' => 'سطوح دسترسی',
             'url' => route('permissions.index'),
-//            'role' => Role::query()->where("name", "manage-acl")->first()
+            'permission'=>'show-acl'
         ]);
 
 
         config()->set('sidebar.items.role', [
             'icon' => "i-role-permissions",
             'title' => 'نقش های کاربری',
-            'url' => route('roles.index')
+            'url' => route('roles.index'),
+            'permission'=>'show-acl'
         ]);
     }
 

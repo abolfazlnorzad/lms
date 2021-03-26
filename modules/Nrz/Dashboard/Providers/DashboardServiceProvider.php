@@ -20,7 +20,8 @@ class DashboardServiceProvider extends ServiceProvider
             config()->set('sidebar.items.dashboard',[
                 "icon"=>"i-dashboard",
                 "title"=>"پیشخوان",
-                "url"=>route('home')
+                "url"=>route('home'),
+                "permission"=>null
             ]);
         });
     }
