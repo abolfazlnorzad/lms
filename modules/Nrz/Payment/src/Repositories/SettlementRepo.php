@@ -30,7 +30,11 @@ class SettlementRepo
 
     public function paginate()
     {
+        if (auth()->user()->isAdmin()){
         return $this->query->latest()->paginate(15);
+        }else{
+            return $this->query->where("user_id",auth()->id())->latest()->paginate(15);
+        }
     }
 
     public function settled()

@@ -45,7 +45,9 @@
                 <th>درصد مدرس</th>
                 <th>وضعیت تایید</th>
                 <th>وضعیت دوره</th>
-                <th>عملیات</th>
+
+                    <th>عملیات</th>
+
             </tr>
             </thead>
             <tbody>
@@ -61,17 +63,22 @@
                     <td>{{$course->percent}}</td>
                     <td class="confirmation_status">@lang($course->confirmation_status)</td>
                     <td class="status">@lang($course->status)</td>
+
                     <td>
-                        <a onclick="deleteItem(event,'{{route('courses.destroy',$course->id)}}')" class="item-delete mlg-15" title="حذف"></a>
-                        <a onclick="changeConfirmationStatus(event,'{{route('courses.reject',$course->id)}}','آیا از رد این دوره اطمینان دارید؟','رد شده')"
-                           class="item-reject mlg-15" title="رد"></a>
-                        <a onclick="changeConfirmationStatus(event,'{{route('courses.lock',$course->id)}}','آیا از قفل کردن این دوره اطمینان دارید؟','قفل شده','status')"
-                           class="item-lock mlg-15" title="قفل دوره"></a>
-                        <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                        <a onclick="changeConfirmationStatus(event,'{{route('courses.accept',$course->id)}}','آیا از تایید این دوره اطمینان دارید؟','تایید شده')"
-                           class="item-confirm mlg-15" title="تایید"></a>
+                        @can("isAdmin")
+                            <a onclick="deleteItem(event,'{{route('courses.destroy',$course->id)}}')"
+                               class="item-delete mlg-15" title="حذف"></a>
+                            <a onclick="changeConfirmationStatus(event,'{{route('courses.reject',$course->id)}}','آیا از رد این دوره اطمینان دارید؟','رد شده')"
+                               class="item-reject mlg-15" title="رد"></a>
+                            <a onclick="changeConfirmationStatus(event,'{{route('courses.lock',$course->id)}}','آیا از قفل کردن این دوره اطمینان دارید؟','قفل شده','status')"
+                               class="item-lock mlg-15" title="قفل دوره"></a>
+                            <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
+                            <a onclick="changeConfirmationStatus(event,'{{route('courses.accept',$course->id)}}','آیا از تایید این دوره اطمینان دارید؟','تایید شده')"
+                               class="item-confirm mlg-15" title="تایید"></a>
+                        @endcan
                         <a href="{{route('courses.edit',$course->id)}}" class="item-edit " title="ویرایش"></a>
                     </td>
+
                 </tr>
             @endforeach
             </tbody>

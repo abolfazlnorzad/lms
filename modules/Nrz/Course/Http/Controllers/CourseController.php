@@ -24,6 +24,7 @@ class CourseController extends Controller
 
     public function __construct(CourseRepo $courseRepo)
     {
+        $this->middleware("can:teach")->only("index");
         $this->repo = $courseRepo;
     }
 
@@ -37,6 +38,7 @@ class CourseController extends Controller
 
     public function create(UserRepo $userRepo, CategoryRepo $categoryRepo)
     {
+        $this->authorize(auth()->user()->isAdmin());
         $teachers = $userRepo->getTeachers();
         $categories = $categoryRepo->allCategory();
         return view('Course::create', compact('teachers', 'categories'));
@@ -45,15 +47,10 @@ class CourseController extends Controller
 
     public function store(CourseRequest $request)
     {
+        $this->authorize(auth()->user()->isAdmin());
         $request->request->add(['banner_id' => MediaFileService::publicUpload($request->file('image'))->id]);
         $course = $this->repo->storeNewCourse($request);
         return redirect(route('courses.index'));
-    }
-
-
-    public function show($id)
-    {
-        //
     }
 
 
@@ -69,7 +66,6 @@ class CourseController extends Controller
     {
 
         if ($request->hasFile('image')) {
-
             $request->request->add(['banner_id' => MediaFileService::publicUpload($request->file('image'))->id]);
             $course->banner->delete();
         } else {
@@ -80,7 +76,6 @@ class CourseController extends Controller
         $this->repo->update($request, $course);
         return redirect(route('courses.index'));
     }
-
 
     public function destroy(Course $course)
     {
@@ -97,7 +92,6 @@ class CourseController extends Controller
 
         return AjaxResponse::error();
     }
-
 
     public function reject(Course $course)
     {
@@ -119,8 +113,11 @@ class CourseController extends Controller
 
     public function details(Course $course)
     {
+        if ($course->teacher_id == auth()->user()->id || auth()->user()->isAdmin()){
+            return view('Course::details', compact('course'));
+        }
+        abort(403);
 
-        return view('Course::details', compact('course'));
 
     }
 

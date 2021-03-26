@@ -20,6 +20,10 @@ class CategoryController extends Controller
 
     public function __construct(CategoryRepo $categoryRepo)
     {
+        $this->middleware("can:show-category")->only("index");
+        $this->middleware("can:delete-category")->only("destroy");
+        $this->middleware("can:create-category")->only('store');
+        $this->middleware("can:edit-category")->only(['edit','update']);
         $this->repo = $categoryRepo;
     }
 

@@ -16,6 +16,10 @@ class RoleController extends Controller
 
     public function __construct(RoleRepo $roleRepo)
     {
+        $this->middleware('can:show-acl')->only("index");
+        $this->middleware("can:create-acl")->only(["create","store"]);
+        $this->middleware("can:edit-acl")->only(["edit","update"]);
+        $this->middleware("can:delete-acl")->only("destroy");
         $this->repo = $roleRepo;
     }
 

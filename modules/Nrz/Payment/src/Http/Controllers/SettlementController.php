@@ -13,12 +13,16 @@ use Nrz\Payment\Services\SettlementService;
 class SettlementController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware("can:teach")->only(["index","create","store"]);
+    }
+
     public function index(SettlementRepo $repo)
     {
         $settlements = $repo->paginate();
         return view("Payment::settlements.index", compact('settlements'));
     }
-
 
     public function create(SettlementRepo $repo)
     {
@@ -28,7 +32,6 @@ class SettlementController extends Controller
         }
         return view("Payment::settlements.create");
     }
-
 
     public function store(SettlementRequest $request, SettlementRepo $repo)
     {
@@ -49,6 +52,7 @@ class SettlementController extends Controller
 
     public function edit(Settlement $settlement, SettlementRepo $repo)
     {
+         $this->authorize(auth()->user()->isAdmin());
         $lastSattlement = $repo->lastSattlement($settlement->user_id);
         if ($settlement->id != $lastSattlement->id) {
             newFeedback("ناموفق", "فقط آخرین درخواست تسویه حساب هر مدرس قابل ویرایش است", "error");
@@ -59,6 +63,7 @@ class SettlementController extends Controller
 
     public function update(SettlementRequest $request, Settlement $settlement)
     {
+        $this->authorize(auth()->user()->isAdmin());
         SettlementService::update($settlement, $request->all());
         return redirect(route("settlements.index"));
     }

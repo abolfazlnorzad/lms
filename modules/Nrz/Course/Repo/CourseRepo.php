@@ -4,6 +4,7 @@
 namespace Nrz\Course\Repo;
 
 
+use GuzzleHttp\Promise\Coroutine;
 use Nrz\Course\Model\Course;
 use Nrz\Course\Model\Lesson;
 use Nrz\Payment\Models\Payment;
@@ -29,8 +30,12 @@ class CourseRepo
 
     public function paginate()
     {
+        if (auth()->user()->isAdmin()) {
+            return Course::query()->paginate();
+        } else {
+            return Course::query()->where("teacher_id", auth()->id())->paginate();
+        }
 
-        return Course::query()->paginate();
     }
 
     public function delete($course)

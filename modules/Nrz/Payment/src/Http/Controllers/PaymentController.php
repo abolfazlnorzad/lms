@@ -17,7 +17,7 @@ class PaymentController extends Controller
 
     public function index(PaymentRepo $paymentRepo, Request $request)
     {
-
+        $this->authorize(auth()->user()->isAdmin());
         $payments = $paymentRepo
             ->searchEmail($request->email)
             ->searchAmount($request->amount)

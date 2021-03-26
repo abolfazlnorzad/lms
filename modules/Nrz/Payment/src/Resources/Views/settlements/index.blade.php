@@ -16,7 +16,8 @@
             <div class="t-header-search">
                 <form action="" onclick="event.preventDefault();">
                     <div class="t-header-searchbox font-size-13">
-                        <input type="text" class="text search-input__box font-size-13" placeholder="جستجوی در تسویه حساب ها">
+                        <input type="text" class="text search-input__box font-size-13"
+                               placeholder="جستجوی در تسویه حساب ها">
                         <div class="t-header-search-content ">
                             <input type="text" class="text" placeholder="شماره کارت">
                             <input type="text" class="text" placeholder="شماره">
@@ -43,28 +44,32 @@
                     <th>تاریخ واریز شده</th>
                     <th>مبلغ (تومان )</th>
                     <th>وضعیت</th>
-                    <th>عملیات</th>
+                    @can("isAdmin")
+                        <th>عملیات</th>
+                    @endcan
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($settlements as $settlement)
-                <tr role="row">
-                    <td><a href="">{{$settlement->transaction_id}}</a></td>
-                    <td><a href="{{route('users.info',$settlement->user_id)}}">{{$settlement->user->name}}</a></td>
-                    <td><a href="">{{$settlement->from ? $settlement->from['name'] :"-" }}</a></td>
-                    <td><a href="">{{$settlement->to ? $settlement->to['name'] : "-"}}</a></td>
-                    <td><a href="">{{$settlement->to ? $settlement->to['cart'] : "-"}}</a></td>
-                    <td><a href=""> {{jdate($settlement->created_at)}} </a></td>
-                    <td><a href="">{{$settlement->settled_at ?? "-"}}</a></td>
-                    <td><a href="">{{number_format($settlement->amount)}}</a></td>
-                    <td><a href="" class="{{$settlement->getCssClass()}}"> @lang($settlement->status)</a></td>
-                    <td>
-                        <a href="" class="item-delete mlg-15" title="حذف"></a>
-                        <a href="show-comment.html" class="item-reject mlg-15" title="رد"></a>
-                        <a href="show-comment.html" class="item-confirm mlg-15" title="تایید"></a>
-                        <a href="{{route('settlements.edit',$settlement->id)}}" class="item-edit " title="ویرایش"></a>
-                    </td>
-                </tr>
+                    <tr role="row">
+                        <td><a href="">{{$settlement->transaction_id}}</a></td>
+                        <td><a href="{{route('users.info',$settlement->user_id)}}">{{$settlement->user->name}}</a></td>
+                        <td><a href="">{{$settlement->from ? $settlement->from['name'] :"-" }}</a></td>
+                        <td><a href="">{{$settlement->to ? $settlement->to['name'] : "-"}}</a></td>
+                        <td><a href="">{{$settlement->to ? $settlement->to['cart'] : "-"}}</a></td>
+                        <td><a href=""> {{jdate($settlement->created_at)}} </a></td>
+                        <td><a href="">{{$settlement->settled_at ?? "-"}}</a></td>
+                        <td><a href="">{{number_format($settlement->amount)}}</a></td>
+                        <td><a href="" class="{{$settlement->getCssClass()}}"> @lang($settlement->status)</a></td>
+                        @can("isAdmin")
+                        <td>
+                            {{--                        <a href="" class="item-delete mlg-15" title="حذف"></a>--}}
+
+                                <a href="{{route('settlements.edit',$settlement->id)}}" class="item-edit "
+                                   title="ویرایش"></a>
+                        </td>
+                        @endcan
+                    </tr>
                 @endforeach
 
                 </tbody>

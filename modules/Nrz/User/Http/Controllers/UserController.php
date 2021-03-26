@@ -26,6 +26,9 @@ class UserController extends Controller
 
     public function __construct(UserRepo $userRepo)
     {
+        $this->middleware("can:show-user")->only("index");
+        $this->middleware("can:delete-user")->only("destroy");
+        $this->middleware("can:edit-user")->only(["edit","update"]);
         $this->repo = $userRepo;
     }
 
@@ -40,32 +43,8 @@ class UserController extends Controller
     }
 
 
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
 
     public function edit(User $user)
