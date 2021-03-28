@@ -19,7 +19,8 @@
         "laravel/ui": "^3.1",
         "morilog/jalali": "3.*",
         "nrz/front": "dev-main",
-        "nrz/payment": "dev-main"
+        "nrz/payment": "dev-main",
+        "nrz/discount":"dev-main"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -36,6 +37,10 @@
         {
             "type": "path",
             "url": "modules/Nrz/Payment"
+        },
+        {
+            "type": "path",
+            "url": "modules/Nrz/Discount"
         }
     ],
     "config": {

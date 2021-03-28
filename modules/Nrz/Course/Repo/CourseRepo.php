@@ -120,4 +120,10 @@ class CourseRepo
             ->where('confirmation_status', Lesson::CONFIRMATION_STATUS_ACCEPTED)->get();
     }
 
+    public function getCourseHasSuccessStatus()
+    {
+        return Course::query()->where("confirmation_status", Course::CONFIRMATION_STATUS_ACCEPTED)
+            ->latest()->get();
+    }
+
 }

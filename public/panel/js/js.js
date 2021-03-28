@@ -205,12 +205,17 @@ $('.create-ads .ads-field-pn').on('click', function (e) {
 $('.create-ads .ads-field-banner').on('click', function (e) {
     $('.file-upload').show()
 });
-$('.discounts #discounts-field-2').on('click', function (e) {
-    $('.discounts .dropdown-select').addClass('is-active')
+$('#discounts-field-2').on('click', function (e) {
+    $('#selectCourseContainer').removeClass('d-none')
 });
-$('.discounts #discounts-field-1').on('click', function (e) {
-    $('.discounts .dropdown-select').removeClass('is-active')
+$('#discounts-field-1').on('click', function (e) {
+    $('#selectCourseContainer').addClass('d-none')
 });
+
+
+
+
+
 
 function deleteItem(event, route,el='tr') {
     event.preventDefault();
@@ -308,6 +313,12 @@ function getSelectedItems() {
     });
     return allVals;
 }
+
+
+
+
+
+
 
 $('.course__detial .item-delete').on('click', function (e) {
     WRN_PROFILE_DELETE = "آیا مطمئن هستید که می خواهید این سطر را حذف کنید؟";

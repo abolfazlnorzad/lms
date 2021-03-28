@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Nrz\Category\Model\Category;
 use Nrz\Course\Repo\CourseRepo;
+use Nrz\Discount\Models\Discount;
 use Nrz\Media\Models\Media;
 use Nrz\Payment\Models\Payment;
 use Nrz\User\Model\User;
@@ -146,6 +147,11 @@ class Course extends Model
             $links[] = $lesson->downloadLink();
         }
         return implode("<br>",$links);
+    }
+
+    public function discounts()
+    {
+        return $this->morphToMany(Discount::class,"discountable");
     }
 
 }

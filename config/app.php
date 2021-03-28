@@ -1,5 +1,6 @@
 <?php
 
+
 return [
 
     /*
@@ -181,7 +182,9 @@ return [
         Nrz\Course\Providers\CourseServiceProvider::class,
         Nrz\Media\Providers\MediaServiceProvider::class,
         Nrz\Acl\Providers\AclServiceProvider::class,
+        Nrz\Discount\Providers\DiscountServiceProvider::class,
         Nrz\Common\Providers\CommonServiceProvider::class,
+
 
     ],
 
