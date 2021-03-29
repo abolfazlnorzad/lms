@@ -57,4 +57,61 @@ class DiscountRepo
         }
     }
 
+
+    public function getValidDiscountQuery($type = "all", $id = null)
+    {
+        $query = Discount::query()
+            ->where(function ($query) {
+                $query->where("expire_at", ">", now())
+                    ->orWhereNull("expire_at");
+            })
+            ->whereNull("code")
+            ->where("type", $type);
+        if ($id) {
+            $query->whereHas("courses", function ($query) use ($id) {
+                $query->where("id", $id);
+            });
+        }
+
+        $query->where(function ($query) {
+            $query->where("usage_limitation", ">", "0")
+                ->orWhereNull("usage_limitation");
+        })
+            ->orderBy("percent", "desc");
+
+        return $query;
+    }
+
+    public function getGlobalBiggerDiscount()
+    {
+        return $this->getValidDiscountQuery()
+            ->first();
+    }
+
+    public function getCourseBiggerDiscount($id)
+    {
+        return $this->getValidDiscountQuery('special', $id)->first();
+    }
+
+    public function checkCodeDiscountIsValid($discountCode, $courseId)
+    {
+        return Discount::query()
+            ->where("code", $discountCode)
+            ->where(function ($query) {
+                $query->where("usage_limitation", ">", "0")
+                    ->orWhereNull("usage_limitation");
+            })
+            ->where(function ($query) {
+                $query->where("expire_at", ">", now())
+                    ->orWhereNull("expire_at");
+            })
+            ->where(function ($query) use ($courseId) {
+                return $query->whereHas("courses", function ($query) use ($courseId) {
+                    return $query->where("id", $courseId);
+                })->orWhereDoesntHave("courses");
+            })
+            ->first();
+    }
+
 }
+

@@ -4,11 +4,13 @@ namespace Nrz\Discount\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Nrz\Common\Response\AjaxResponse;
+use Nrz\Course\Model\Course;
 use Nrz\Course\Repo\CourseRepo;
 use Nrz\Discount\Http\Requests\DiscountRequest;
 use Nrz\Discount\Models\Discount;
 use Illuminate\Http\Request;
 use Nrz\Discount\Repositories\DiscountRepo;
+use Nrz\Discount\Services\DiscountService;
 
 class DiscountController extends Controller
 {
@@ -43,6 +45,28 @@ class DiscountController extends Controller
         $discountRepo->update($discount, $request->all());
         newFeedback("موفقیت آمیز", "تخفیف با موفقیت ویرایش  شد", "success");
         return redirect(route("discounts.index"));
+    }
+
+    public function check($discountCode, Course $course, DiscountRepo $discountRepo)
+    {
+        $validDiscount = $discountRepo->checkCodeDiscountIsValid($discountCode, $course->id);
+        if ($validDiscount) {
+            $percentDiscount = $validDiscount->percent;
+            $amountDiscount = DiscountService::getAmountDiscount($course->price, $percentDiscount);
+            $payableAmount = $course->price - $amountDiscount;
+            return response([
+                "status" => "valid",
+                "percentDiscount" => $percentDiscount,
+                "amountDiscount" => $amountDiscount,
+                "payableAmount" => $payableAmount,
+            ], 200);
+
+        } else {
+            return response([
+                "status" => "invalid"
+            ], 422);
+        }
+
     }
 
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2021 at 04:05 PM
+-- Generation Time: Mar 28, 2021 at 08:19 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -106,6 +106,47 @@ INSERT INTO `course_user` (`user_id`, `course_id`, `created_at`, `updated_at`) V
 (8, 2, NULL, NULL),
 (9, 2, NULL, NULL),
 (10, 2, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `discountables`
+--
+
+CREATE TABLE `discountables` (
+  `discount_id` bigint(20) UNSIGNED NOT NULL,
+  `discountable_id` bigint(20) UNSIGNED NOT NULL,
+  `discountable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `discounts`
+--
+
+CREATE TABLE `discounts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `percent` tinyint(3) UNSIGNED NOT NULL,
+  `usage_limitation` bigint(20) UNSIGNED DEFAULT NULL,
+  `expire_at` timestamp NULL DEFAULT NULL,
+  `link` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` enum('all','special') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'all',
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `uses` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `discounts`
+--
+
+INSERT INTO `discounts` (`id`, `user_id`, `code`, `percent`, `usage_limitation`, `expire_at`, `link`, `type`, `description`, `uses`, `created_at`, `updated_at`) VALUES
+(5, 1, 'all-dis', 25, NULL, NULL, NULL, 'all', NULL, 0, '2021-03-28 13:35:00', '2021-03-28 13:35:00'),
+(6, 1, 'alll', 35, 25, NULL, NULL, 'all', NULL, 0, '2021-03-28 13:35:14', '2021-03-28 13:35:55');
 
 -- --------------------------------------------------------
 
@@ -221,7 +262,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2021_01_05_071525_create_lessons_table', 1),
 (12, '2021_01_10_084809_course_student', 1),
 (13, '2021_01_10_122605_create_payments_table', 1),
-(15, '2021_03_22_100645_create_settlements_table', 2);
+(15, '2021_03_22_100645_create_settlements_table', 2),
+(19, '2021_03_28_052348_create_discounts_table', 3);
 
 -- --------------------------------------------------------
 
@@ -549,6 +591,19 @@ ALTER TABLE `course_user`
   ADD KEY `course_user_course_id_foreign` (`course_id`);
 
 --
+-- Indexes for table `discountables`
+--
+ALTER TABLE `discountables`
+  ADD PRIMARY KEY (`discount_id`,`discountable_id`,`discountable_type`);
+
+--
+-- Indexes for table `discounts`
+--
+ALTER TABLE `discounts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `discounts_code_unique` (`code`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -670,6 +725,12 @@ ALTER TABLE `courses`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `discounts`
+--
+ALTER TABLE `discounts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -691,7 +752,7 @@ ALTER TABLE `media`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `payments`

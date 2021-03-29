@@ -97,7 +97,7 @@ function move(n) {
 
 function progressbar(slideId) {
     items = document.getElementsByClassName('item-inner');
-    var width = 0;
+    let width = 0;
     pt = setInterval(frame, 30);
 
     function frame() {

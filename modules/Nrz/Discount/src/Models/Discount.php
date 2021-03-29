@@ -16,6 +16,6 @@ class Discount extends Model
 
     public function courses()
     {
-        return $this->morphedByMany(Course::class,"discountable");
+        return $this->morphedByMany(Course::class, "discountable");
     }
 }

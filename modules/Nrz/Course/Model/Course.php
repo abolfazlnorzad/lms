@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Nrz\Category\Model\Category;
 use Nrz\Course\Repo\CourseRepo;
 use Nrz\Discount\Models\Discount;
+use Nrz\Discount\Repositories\DiscountRepo;
 use Nrz\Media\Models\Media;
 use Nrz\Payment\Models\Payment;
 use Nrz\User\Model\User;
@@ -112,12 +113,18 @@ class Course extends Model
 
     public function getDiscountPercent()
     {
-        return 0;
+        $discountRepo = new DiscountRepo();
+        $percent = 0;
+        $specificDiscount = $discountRepo->getCourseBiggerDiscount($this->id);
+        if ($specificDiscount) $percent = $specificDiscount->percent;
+        $globalDiscount = $discountRepo->getGlobalBiggerDiscount();
+        if ($globalDiscount && $globalDiscount->percent > $percent) $percent = $globalDiscount->percent;
+        return $percent;
     }
 
     public function getDiscountAmount()
     {
-        return 0;
+        return $this->price * ((float)("0." . $this->getDiscountPercent()));
     }
 
     public function getFinalPrice()
@@ -134,6 +141,7 @@ class Course extends Model
     {
         return $this->morphMany(Payment::class, 'paymentable');
     }
+
     public function payment()
     {
         return $this->payments()->latest()->first();
@@ -146,12 +154,12 @@ class Course extends Model
         foreach ($lessons as $lesson) {
             $links[] = $lesson->downloadLink();
         }
-        return implode("<br>",$links);
+        return implode("<br>", $links);
     }
 
     public function discounts()
     {
-        return $this->morphToMany(Discount::class,"discountable");
+        return $this->morphToMany(Discount::class, "discountable");
     }
 
 }
