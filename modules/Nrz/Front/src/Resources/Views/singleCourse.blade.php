@@ -214,9 +214,13 @@
                 <div class="modal-body">
                     <form method="post" action="{{ route("courses.buy", $course->id) }}">
                         @csrf
-                        <div><input type="text" id="code-discount" class="txt" placeholder="کد تخفیف را وارد کنید">
+                        <div><input type="text" name="code" id="code-discount" class="txt"
+                                    placeholder="کد تخفیف را وارد کنید">
+                            <p id="response"></p>
                         </div>
-                        <button class="btn i-t " type="button" onclick="handleDiscount()">اعمال</button>
+                        <button class="btn i-t " type="button" onclick="handleDiscount()">اعمال
+                            <img src="/img/loading.gif" alt="" id="loading" class="loading d-none">
+                        </button>
 
                         <table class="table text-center  table-bordered table-striped">
                             <tbody>
@@ -226,19 +230,31 @@
                             </tr>
                             <tr>
                                 <th>درصد تخفیف</th>
-                                <td id="percentDiscount">{{ $course->getDiscountPercent() }}%</td>
+                                <td>
+                                    <span id="percentDiscount" data-value="{{ $course->getDiscountPercent() }}"> {{ $course->getDiscountPercent() }}</span>
+                                    %
+                                </td>
                             </tr>
                             <tr>
                                 <th> مبلغ تخفیف</th>
-                                <td id="amountDiscount" class="text-red"> {{ $course->getDiscountAmount() }} تومان</td>
+                                <td class="text-red">
+                                    <span id="amountDiscount" data-value="{{ $course->getDiscountAmount() }}">  {{ $course->getDiscountAmount() }}</span>
+
+                                    تومان
+                                </td>
                             </tr>
                             <tr>
                                 <th> قابل پرداخت</th>
-                                <td id="payableAmount" class="text-blue"> {{ $course->getFormattedFinalPrice() }} تومان</td>
+                                <td class="text-blue">
+                                    <span id="payableAmount" data-value="{{$course->getFinalPrice() }}"> {{ $course->getFormattedFinalPrice() }}</span>
+                                    تومان
+
+
+                                </td>
                             </tr>
                             </tbody>
                         </table>
-                        <button type="submit" class="btn btn i-t ">پرداخت آنلاین</button>
+                        <button type="submit" class="btn btn i-t">پرداخت آنلاین</button>
                     </form>
                 </div>
             </div>
@@ -251,18 +267,24 @@
     <script>
 
         function handleDiscount() {
+            $("#loading").removeClass("d-none")
             const code = $("#code-discount").val();
             const url = "{{route("discounts.check",["code",$course->id])}}";
+            $("#loading").addClass("d-none")
+            $("#response").text("")
             $.get(url.replace("code", code))
                 .done(data => {
-                    $("#percentDiscount").text(data.percentDiscount);
-                    $("#amountDiscount").text(data.amountDiscount);
-                    $("#payableAmount").text(data.payableAmount);
+                    $("#percentDiscount").text(parseInt($("#percentDiscount").attr("data-value")) + data.percentDiscount);
+                    $("#amountDiscount").text(parseInt($("#amountDiscount").attr("data-value")) + data.amountDiscount);
+                    $("#payableAmount").text(parseInt($("#payableAmount").attr("data-value")) - data.amountDiscount);
+                    $("#response").text("کد تخفیف با موفقیت اعمال شد.").removeClass("text-error").addClass("text-success")
                 })
                 .fail(err => {
-                    console.log(err)
+                    $("#response").text("کد وارده شده برای این درس معتبر نیست.").removeClass("text-success").addClass("text-error")
                 })
-
+                .always(function () {
+                    $("#loading").addClass("d-none")
+                })
         }
     </script>
 @endsection

@@ -8,7 +8,7 @@ use Nrz\User\Model\User;
 
 class PaymentService
 {
-    public static function generate($amount, $paymntable, User $user)
+    public static function generate($amount, $paymntable, User $user,$discounts=[])
     {
 
         if ($amount <= 0 || is_null($user->id) || is_null($paymntable->id)) return false;
@@ -37,7 +37,7 @@ class PaymentService
             'seller_p' => $seller_p,
             'seller_share' => $seller_share,
             'site_share' => $site_share,
-        ]);
+        ],$discounts);
 
     }
 }

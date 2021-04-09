@@ -132,13 +132,13 @@ class CourseController extends Controller
             return back();
         }
 
-        $amount = $course->getFinalPrice();
+        [$amount,$discounts] = $course->getFinalPrice(request()->code,true);
         if ($amount <= 0) {
             $this->repo->addStudentToCourse($course, auth()->id());
             newFeedback(" موفقیت آمیز", "خرید دوره موفقیت آمیز", "success");
             return redirect($course->path());
         }
-        $payment = PaymentService::generate($amount, $course, auth()->user());
+        $payment = PaymentService::generate($amount, $course, auth()->user(),$discounts);
 
         resolve(Gateway::class)->redirect();
 
