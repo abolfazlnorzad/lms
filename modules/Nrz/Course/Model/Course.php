@@ -12,6 +12,7 @@ use Nrz\Discount\Repositories\DiscountRepo;
 use Nrz\Discount\Services\DiscountService;
 use Nrz\Media\Models\Media;
 use Nrz\Payment\Models\Payment;
+use Nrz\Tickets\Models\Ticket;
 use Nrz\User\Model\User;
 
 class Course extends Model
@@ -199,6 +200,11 @@ class Course extends Model
     public function discounts()
     {
         return $this->morphToMany(Discount::class, "discountable");
+    }
+
+    public function tickets()
+    {
+        return $this->morphMany(Ticket::class,"ticketable");
     }
 
 }

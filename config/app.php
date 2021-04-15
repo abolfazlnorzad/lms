@@ -184,6 +184,7 @@ return [
         Nrz\Acl\Providers\AclServiceProvider::class,
         Nrz\Discount\Providers\DiscountServiceProvider::class,
         Nrz\Common\Providers\CommonServiceProvider::class,
+        Nrz\Tickets\Providers\TicketServiceProvider::class,
 
 
     ],

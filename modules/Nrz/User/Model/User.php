@@ -17,6 +17,8 @@ use Nrz\Course\Model\Season;
 use Nrz\Media\Models\Media;
 use Nrz\Payment\Models\Payment;
 use Nrz\Payment\Models\Settlement;
+use Nrz\Tickets\Models\Reply;
+use Nrz\Tickets\Models\Ticket;
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -175,6 +177,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function settlements()
     {
         return $this->hasMany(Settlement::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    public function ticketReplies()
+    {
+        return $this->hasMany(Reply::class);
     }
 
 }

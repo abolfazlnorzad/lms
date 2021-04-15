@@ -20,7 +20,8 @@
         "morilog/jalali": "3.*",
         "nrz/front": "dev-main",
         "nrz/payment": "dev-main",
-        "nrz/discount":"dev-main"
+        "nrz/discount":"dev-main",
+        "nrz/tickets":"dev-main"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -41,6 +42,10 @@
         {
             "type": "path",
             "url": "modules/Nrz/Discount"
+        },
+        {
+            "type": "path",
+            "url": "modules/Nrz/Tickets"
         }
     ],
     "config": {

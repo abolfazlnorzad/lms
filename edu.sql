@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2021 at 08:19 PM
+-- Generation Time: Apr 09, 2021 at 02:27 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -102,10 +102,10 @@ INSERT INTO `course_user` (`user_id`, `course_id`, `created_at`, `updated_at`) V
 (5, 2, NULL, NULL),
 (6, 1, NULL, NULL),
 (6, 2, NULL, NULL),
-(7, 2, NULL, NULL),
+(7, 1, NULL, NULL),
+(8, 1, NULL, NULL),
 (8, 2, NULL, NULL),
-(9, 2, NULL, NULL),
-(10, 2, NULL, NULL);
+(9, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -118,6 +118,13 @@ CREATE TABLE `discountables` (
   `discountable_id` bigint(20) UNSIGNED NOT NULL,
   `discountable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `discountables`
+--
+
+INSERT INTO `discountables` (`discount_id`, `discountable_id`, `discountable_type`) VALUES
+(7, 1, 'Nrz\\Course\\Model\\Course');
 
 -- --------------------------------------------------------
 
@@ -145,8 +152,35 @@ CREATE TABLE `discounts` (
 --
 
 INSERT INTO `discounts` (`id`, `user_id`, `code`, `percent`, `usage_limitation`, `expire_at`, `link`, `type`, `description`, `uses`, `created_at`, `updated_at`) VALUES
-(5, 1, 'all-dis', 25, NULL, NULL, NULL, 'all', NULL, 0, '2021-03-28 13:35:00', '2021-03-28 13:35:00'),
-(6, 1, 'alll', 35, 25, NULL, NULL, 'all', NULL, 0, '2021-03-28 13:35:14', '2021-03-28 13:35:55');
+(7, 1, 'bahar1400', 25, 4, '2021-04-20 11:52:00', NULL, 'special', NULL, 5, '2021-03-29 02:21:00', '2021-04-09 06:27:00'),
+(9, 1, NULL, 10, NULL, NULL, NULL, 'all', NULL, 3, '2021-04-09 05:55:05', '2021-04-09 06:27:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `discount_payment`
+--
+
+CREATE TABLE `discount_payment` (
+  `discount_id` bigint(20) UNSIGNED NOT NULL,
+  `payment_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `discount_payment`
+--
+
+INSERT INTO `discount_payment` (`discount_id`, `payment_id`, `created_at`, `updated_at`) VALUES
+(7, 26, NULL, NULL),
+(7, 27, NULL, NULL),
+(7, 28, NULL, NULL),
+(7, 29, NULL, NULL),
+(7, 30, NULL, NULL),
+(9, 28, NULL, NULL),
+(9, 29, NULL, NULL),
+(9, 30, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -263,7 +297,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (12, '2021_01_10_084809_course_student', 1),
 (13, '2021_01_10_122605_create_payments_table', 1),
 (15, '2021_03_22_100645_create_settlements_table', 2),
-(19, '2021_03_28_052348_create_discounts_table', 3);
+(19, '2021_03_28_052348_create_discounts_table', 3),
+(20, '2021_04_09_071353_create_discount_payment_table', 4),
+(21, '2021_04_09_112321_create_tickets_table', 5),
+(22, '2021_04_09_112359_create_ticket_replies_table', 5);
 
 -- --------------------------------------------------------
 
@@ -318,7 +355,21 @@ INSERT INTO `payments` (`id`, `buyer_id`, `seller_id`, `paymentable_id`, `paymen
 (13, 5, 2, 1, 'Nrz\\Course\\Model\\Course', '125000', '000000000000000000000000000000418172', 'Zarinpal', 'fail', 35, '43750', '81250', '2021-03-22 05:29:29', '2021-03-22 05:29:39'),
 (14, 9, 4, 2, 'Nrz\\Course\\Model\\Course', '200000', '000000000000000000000000000000418174', 'Zarinpal', 'success', 45, '90000', '110000', '2021-03-22 05:31:17', '2021-03-22 05:31:19'),
 (15, 10, 4, 2, 'Nrz\\Course\\Model\\Course', '200000', '000000000000000000000000000000418177', 'Zarinpal', 'success', 45, '90000', '110000', '2021-03-22 05:33:13', '2021-03-22 05:33:16'),
-(16, 4, 2, 1, 'Nrz\\Course\\Model\\Course', '125000', '000000000000000000000000000000419451', 'Zarinpal', 'success', 35, '43750', '81250', '2021-03-23 05:07:21', '2021-03-23 05:07:24');
+(16, 4, 2, 1, 'Nrz\\Course\\Model\\Course', '125000', '000000000000000000000000000000419451', 'Zarinpal', 'success', 35, '43750', '81250', '2021-03-23 05:07:21', '2021-03-23 05:07:24'),
+(17, 1, 2, 1, 'Nrz\\Course\\Model\\Course', '125000', '000000000000000000000000000000425425', 'Zarinpal', 'pending', 35, '43750', '81250', '2021-03-29 11:35:30', '2021-03-29 11:35:30'),
+(18, 8, 2, 1, 'Nrz\\Course\\Model\\Course', '125000', '000000000000000000000000000000437545', 'Zarinpal', 'fail', 35, '43750', '81250', '2021-04-09 02:24:03', '2021-04-09 02:24:07'),
+(19, 8, 2, 1, 'Nrz\\Course\\Model\\Course', '125000', '000000000000000000000000000000437546', 'Zarinpal', 'pending', 35, '43750', '81250', '2021-04-09 02:24:14', '2021-04-09 02:24:14'),
+(20, 8, 2, 1, 'Nrz\\Course\\Model\\Course', '125000', '000000000000000000000000000000437547', 'Zarinpal', 'fail', 35, '43750', '81250', '2021-04-09 02:25:55', '2021-04-09 02:25:58'),
+(21, 8, 2, 1, 'Nrz\\Course\\Model\\Course', '93750', '000000000000000000000000000000437549', 'Zarinpal', 'success', 35, '32812.5', '60937.5', '2021-04-09 02:26:16', '2021-04-09 02:26:22'),
+(22, 1, 2, 1, 'Nrz\\Course\\Model\\Course', '93750', '000000000000000000000000000000437607', 'Zarinpal', 'pending', 35, '32812.5', '60937.5', '2021-04-09 03:33:27', '2021-04-09 03:33:27'),
+(23, 7, 2, 1, 'Nrz\\Course\\Model\\Course', '112500', '000000000000000000000000000000437701', 'Zarinpal', 'pending', 35, '39375', '73125', '2021-04-09 05:47:58', '2021-04-09 05:47:58'),
+(24, 7, 2, 1, 'Nrz\\Course\\Model\\Course', '112500', '000000000000000000000000000000437703', 'Zarinpal', 'fail', 35, '39375', '73125', '2021-04-09 05:48:24', '2021-04-09 05:48:33'),
+(25, 7, 2, 1, 'Nrz\\Course\\Model\\Course', '112500', '000000000000000000000000000000437704', 'Zarinpal', 'success', 35, '39375', '73125', '2021-04-09 05:49:01', '2021-04-09 05:49:04'),
+(26, 7, 2, 1, 'Nrz\\Course\\Model\\Course', '84375', '000000000000000000000000000000437706', 'Zarinpal', 'success', 35, '29531.25', '54843.75', '2021-04-09 05:50:32', '2021-04-09 05:50:40'),
+(27, 7, 2, 1, 'Nrz\\Course\\Model\\Course', '84375', '000000000000000000000000000000437707', 'Zarinpal', 'success', 35, '29531.25', '54843.75', '2021-04-09 05:51:37', '2021-04-09 05:51:39'),
+(28, 7, 2, 1, 'Nrz\\Course\\Model\\Course', '84375', '000000000000000000000000000000437713', 'Zarinpal', 'success', 35, '29531.25', '54843.75', '2021-04-09 05:55:54', '2021-04-09 05:55:59'),
+(29, 7, 2, 1, 'Nrz\\Course\\Model\\Course', '84375', '000000000000000000000000000000437715', 'Zarinpal', 'success', 35, '29531.25', '54843.75', '2021-04-09 05:57:03', '2021-04-09 05:57:05'),
+(30, 7, 2, 1, 'Nrz\\Course\\Model\\Course', '84375', '000000000000000000000000000000437735', 'Zarinpal', 'success', 35, '29531.25', '54843.75', '2021-04-09 06:26:55', '2021-04-09 06:27:00');
 
 -- --------------------------------------------------------
 
@@ -517,6 +568,39 @@ INSERT INTO `settlements` (`id`, `transaction_id`, `user_id`, `from`, `to`, `set
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tickets`
+--
+
+CREATE TABLE `tickets` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('open','close','pending') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `ticketable_id` bigint(20) UNSIGNED NOT NULL,
+  `ticketable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ticket_replies`
+--
+
+CREATE TABLE `ticket_replies` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `ticket_id` bigint(20) UNSIGNED NOT NULL,
+  `media_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `body` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -550,13 +634,13 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `username`, `is_admin`, `is_staff`, `balance`, `headline`, `bio`, `ip`, `card_number`, `shaba`, `telegram`, `status`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `image_id`) VALUES
 (1, 'ابوالفضل', 'abol@gmail.com', '09011216131', 'abol', 1, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-21 10:17:43', '$2y$10$FNucXFynrP1MQrRdB7nCN.FyMkm3yFGFREzh9yEpfwUlTW/YfXDbS', 'zD3916RwoaGpdKF1yIpJH1TlPxJcYHgJXVX6jR2lMfgVxB7FTetvEUZaXEqy', '2021-03-21 10:16:51', '2021-03-21 10:17:43', NULL),
-(2, 'علی', 'ali@gmail.com', '09011216132', 'ali', 0, 0, 33750, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-21 10:17:43', '$2y$10$FNucXFynrP1MQrRdB7nCN.FyMkm3yFGFREzh9yEpfwUlTW/YfXDbS', 'BfQeSjJg3qBpOkySBNMVJ6gVBkAVwfud0HiOrnQpCYXRb4LNnGxiik1eOAwC', '2021-03-21 10:16:51', '2021-03-24 04:37:46', NULL),
+(2, 'علی', 'ali@gmail.com', '09011216132', 'ali', 0, 0, 253592, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-21 10:17:43', '$2y$10$FNucXFynrP1MQrRdB7nCN.FyMkm3yFGFREzh9yEpfwUlTW/YfXDbS', 'BfQeSjJg3qBpOkySBNMVJ6gVBkAVwfud0HiOrnQpCYXRb4LNnGxiik1eOAwC', '2021-03-21 10:16:51', '2021-04-09 06:27:00', NULL),
 (3, 'رضا', 'aclmanager@gmail.com', '09011216133', 'reza', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-21 10:17:43', '$2y$10$FNucXFynrP1MQrRdB7nCN.FyMkm3yFGFREzh9yEpfwUlTW/YfXDbS', 'H5IihAKy5vzvp08HXTnlFRrjTqVeDC28GYDyHIyB6BQJDVZEBZDiwiCLYUCc', '2021-03-21 10:16:51', '2021-03-26 02:44:10', NULL),
 (4, 'امیر', 'amir@gmail.com', '09011216134', 'amir', 0, 0, 10000, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-21 10:17:43', '$2y$10$FNucXFynrP1MQrRdB7nCN.FyMkm3yFGFREzh9yEpfwUlTW/YfXDbS', 'oBZfclG33rlJo9QItCXMrst2gt4RcsT4YchPEDnK9VWo4kkk2ibzjJbVUUVV', '2021-03-21 10:16:51', '2021-03-24 04:28:51', NULL),
 (5, 'علیرضا', 'stu1@gmail.com', '09011545564', 'alireza', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-21 10:33:32', '$2y$10$EifemGhEOxFy1BcKPzW9WexqvTXlsDl1a0lZA9dLdmVSRUjbaaLH6', '4krzkdWc2IJIeSGpKTFlfvBYOXqJLqDX1El6QGsj00g0LqjvVsF1FL91YEPl', '2021-03-21 10:32:53', '2021-03-21 10:33:32', NULL),
 (6, 'بردیاا', 'stu2@gmail.com', '09011655644', 'bardiaa', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-21 10:34:20', '$2y$10$xGAKR.uqe33xvzBNgdVyj.7oJf/CWHpwsTy6bsyKsGxnzNDQ.5mAa', 'lWciwNaD7sORXmbDSmI8EV3QtbwxfbCVPKAJ6j9CqpXsmBI7TTwDozq2yGko', '2021-03-21 10:34:05', '2021-03-26 02:52:53', NULL),
 (7, 'امیرحسین', 'stu3@gmail.com', '09025545666', 'amirhossein', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-21 10:35:35', '$2y$10$nCHJhbeFbnSBhIce0OqNZOuDE7oIs3aWkL6LobRu4ew0PfB.s77LK', 'DOSvWFVZKRhJIcPRnJPFAr7e47eZykHIqzdfnrLWHvxkA56coqIED6cuU21a', '2021-03-21 10:35:21', '2021-03-21 10:35:35', NULL),
-(8, 'مبین', 'stu4@gmail.com', '09011216188', 'mobin', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-22 05:16:19', '$2y$10$mVr4p3MnRE.S9D3uplLE/..reBzAMVv0wV/1hbXKqWNHYc/h1EaDO', NULL, '2021-03-22 05:15:55', '2021-03-22 05:16:19', NULL),
+(8, 'مبین', 'stu4@gmail.com', '09011216188', 'mobin', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-22 05:16:19', '$2y$10$mVr4p3MnRE.S9D3uplLE/..reBzAMVv0wV/1hbXKqWNHYc/h1EaDO', 'Q68fq26kRyQIJKFEzdoQO6A1cA9RoobmVnhSCC7h6hlKgYVEeuZczitZu7sH', '2021-03-22 05:15:55', '2021-03-22 05:16:19', NULL),
 (9, 'احمد', 'categorymanager@gmail.com', '09011216897', 'ahmad', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-22 05:31:06', '$2y$10$sABoRF4LZ0uajBWnEdIpcuaN52uWGtLixkhpDUAsFPEjnGoAGS4sG', 'Jz25pxxwDfYzA5GpR9TnKIsOKZOCo7g0xfhBhIDDfDoqZ2TfWqVifab9nER5', '2021-03-22 05:30:49', '2021-03-26 02:58:34', NULL),
 (10, 'متین', 'usermanager@gmail.com', '09011216898', 'matin', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-22 05:31:06', '$2y$10$sABoRF4LZ0uajBWnEdIpcuaN52uWGtLixkhpDUAsFPEjnGoAGS4sG', 'YiFyPLtNhaITuXnE8wCaXh2dQRnoIXlURG8ysmdqVrx0UBll4yjJLiKkiGs6', '2021-03-22 05:30:49', '2021-03-26 02:44:48', NULL),
 (11, 'مدرس', 'teacher@gmail.com', '09046589874', 'teacher', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-25 11:54:12', '$2y$10$ZF0zIB1N7Cm3oUX6KVKmsuSkSKbwwagd8GB8kha25Y53xVdHvRiRe', NULL, '2021-03-25 07:22:39', '2021-03-25 07:22:39', NULL),
@@ -602,6 +686,13 @@ ALTER TABLE `discountables`
 ALTER TABLE `discounts`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `discounts_code_unique` (`code`);
+
+--
+-- Indexes for table `discount_payment`
+--
+ALTER TABLE `discount_payment`
+  ADD PRIMARY KEY (`discount_id`,`payment_id`),
+  ADD KEY `discount_payment_payment_id_foreign` (`payment_id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -701,6 +792,22 @@ ALTER TABLE `settlements`
   ADD KEY `settlements_user_id_foreign` (`user_id`);
 
 --
+-- Indexes for table `tickets`
+--
+ALTER TABLE `tickets`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tickets_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `ticket_replies`
+--
+ALTER TABLE `ticket_replies`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `ticket_replies_user_id_foreign` (`user_id`),
+  ADD KEY `ticket_replies_ticket_id_foreign` (`ticket_id`),
+  ADD KEY `ticket_replies_media_id_foreign` (`media_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -728,7 +835,7 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `discounts`
 --
 ALTER TABLE `discounts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -752,13 +859,13 @@ ALTER TABLE `media`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -803,6 +910,18 @@ ALTER TABLE `settlements`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `tickets`
+--
+ALTER TABLE `tickets`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ticket_replies`
+--
+ALTER TABLE `ticket_replies`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -832,6 +951,13 @@ ALTER TABLE `courses`
 ALTER TABLE `course_user`
   ADD CONSTRAINT `course_user_course_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `course_user_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `discount_payment`
+--
+ALTER TABLE `discount_payment`
+  ADD CONSTRAINT `discount_payment_discount_id_foreign` FOREIGN KEY (`discount_id`) REFERENCES `discounts` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `discount_payment_payment_id_foreign` FOREIGN KEY (`payment_id`) REFERENCES `payments` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `lessons`
@@ -888,6 +1014,20 @@ ALTER TABLE `seasons`
 --
 ALTER TABLE `settlements`
   ADD CONSTRAINT `settlements_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `tickets`
+--
+ALTER TABLE `tickets`
+  ADD CONSTRAINT `tickets_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `ticket_replies`
+--
+ALTER TABLE `ticket_replies`
+  ADD CONSTRAINT `ticket_replies_media_id_foreign` FOREIGN KEY (`media_id`) REFERENCES `media` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `ticket_replies_ticket_id_foreign` FOREIGN KEY (`ticket_id`) REFERENCES `tickets` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `ticket_replies_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `users`

@@ -1,0 +1,15 @@
+{
+    "name": "nrz/tickets",
+    "autoload": {
+        "psr-4": {
+            "Nrz\\Tickets\\" : "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "\\Nrz\\Tickets\\Providers\\TicketServiceProvider"
+            ]
+        }
+    }
+}
