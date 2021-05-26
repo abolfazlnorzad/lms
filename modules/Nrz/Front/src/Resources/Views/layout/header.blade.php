@@ -121,7 +121,7 @@
                 </div>
 
                 <div class="join-teachers">
-                    <a href="become-a-teacher.html">تدریس در وب آموز</a>
+                    <a href="become-a-teacher.html">تدریس </a>
                 </div>
                 @auth()
                     <div class="user-menu-account">
@@ -178,7 +178,8 @@
 
                 <li class="main-menu d-none"><a href="#">درباره ما</a></li>
                 <li class="main-menu"><a href="contact-us.html">تماس ما</a></li>
-                <li class="main-menu join-teachers-li"><a href="become-a-teacher.html">تدریس در وب آموز</a></li>
+                <li class="main-menu join-teachers-li"><a href="become-a-teacher.html">تدریس
+                        ز</a></li>
                 <li class="main-menu"><a href="https://www.webamooz.net/blog">مقالات</a></li>
             </ul>
 

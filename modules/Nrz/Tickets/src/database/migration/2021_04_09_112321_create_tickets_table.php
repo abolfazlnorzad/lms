@@ -16,10 +16,8 @@ class CreateTicketsTable extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->string("title");
-            $table->enum("status", ["open", "close", "pending"]);
+            $table->enum("status", \Nrz\Tickets\Models\Ticket::$statuses)->default(\Nrz\Tickets\Models\Ticket::STATUS_OPEN);
             $table->foreignId("user_id")->constrained()->onDelete("cascade");
-            $table->foreignId("ticketable_id");
-            $table->string("ticketable_type");
             $table->timestamps();
         });
     }

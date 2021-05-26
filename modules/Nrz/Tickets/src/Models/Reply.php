@@ -9,7 +9,8 @@ use Nrz\User\Model\User;
 class Reply extends Model
 {
     use HasFactory;
-
+    protected $guarded=[];
+    protected $table = "ticket_replies";
     public function ticket()
     {
         return $this->belongsTo(Ticket::class);
