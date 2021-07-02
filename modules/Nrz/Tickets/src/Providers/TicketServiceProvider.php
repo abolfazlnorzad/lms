@@ -16,6 +16,7 @@ class TicketServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(__DIR__ . "/../Routes/ticket_routes.php");
         $this->loadMigrationsFrom(__DIR__ . "/../database/migration");
+        $this->loadJsonTranslationsFrom(__DIR__."/../Resources/Lang");
 
 
 

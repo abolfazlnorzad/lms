@@ -5,10 +5,31 @@
 @section('content')
     <div class="tab__box">
         <div class="tab__items">
-            <a class="tab__item is-active" href="{{ route("tickets.index") }}">همه تیکت ها</a>
-            {{--            <a class="tab__item " href="tickets.html">جدید ها (خوانده نشده)</a>--}}
-            {{--            <a class="tab__item " href="tickets.html">پاسخ داده شده ها</a>--}}
+            <a class="tab__item {{ request()->status == "" ? 'is-active' : ''  }}" href="{{ route("tickets.index") }}">همه تیکت ها</a>
+            <a class="tab__item {{ request()->status == "open" ? 'is-active' : ''  }}" href="?{{request()->getQueryString()}}&status=open">جدید ها (خوانده نشده)</a>
+            <a class="tab__item {{ request()->status == "replied" ? 'is-active' : ''  }}" href="?{{request()->getQueryString()}}&status=replied">پاسخ داده شده ها</a>
+            <a class="tab__item {{ request()->status == "close" ? 'is-active' : ''  }}" href="?{{request()->getQueryString()}}&status=close">بسته شده</a>
             <a class="tab__item " href="{{ route("tickets.create") }}">ارسال تیکت جدید</a>
+        </div>
+    </div>
+
+    <div class="bg-white padding-20">
+        <div class="t-header-search">
+            <form action="{{ route("tickets.index") }}">
+                <div class="t-header-searchbox font-size-13">
+                    <input type="text" class="text search-input__box font-size-13" name="title"
+                           value="{{ request()->title }}"
+                           placeholder="جستجوی در تیکت ها">
+                    <div class="t-header-search-content ">
+                        <input type="text" class="text" value="{{ request()->email }}" name="email" placeholder="ایمیل">
+                        <input type="text" class="text" value="{{ request()->name }}" name="name"
+                               placeholder="نام و نام خانوادگی">
+                        <input type="text" class="text margin-bottom-20" value="{{ request()->date }}" name="date"
+                               placeholder="تاریخ">
+                        <button type="submit" class="btn btn-webamooz_net">جستجو</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <div class="row no-gutters  ">
@@ -40,17 +61,19 @@
                                 <td><a href="{{route('tickets.show',$ticket->id)}}">{{ $ticket->title }}</a></td>
 
                                 <td>{{ $ticket->user->email }}</td>
-                                <td>{{ $ticket->updated_at }}</td>
-                                <td>{{ $ticket->status }}</td>
+                                <td>{{ jdate($ticket->updated_at) }}</td>
+                                <td>@lang($ticket->status)</td>
 
                                 <td>
 
                                     <a href="{{route("tickets.close",$ticket->id)}}">بستن تیکت</a>
-{{--                                    <a href=""--}}
-{{--                                       onclick="deleteItem(event, '{{ route('tickets.destroy', $ticket->id) }}')"--}}
-{{--                                       class="item-delete mlg-15" title="حذف"></a>--}}
-{{--                                    <a href="{{ route('tickets.edit', $ticket->id) }}" class="item-edit mlg-15"--}}
-{{--                                       title="ویرایش"></a>--}}
+                                    <a href=""
+                                       onclick="deleteItem(event, '{{ route('tickets.destroy', $ticket->id) }}')"
+                                       class="item-delete mlg-15" title="حذف"></a>
+
+
+                                    {{--                                    <a href="{{ route('tickets.edit', $ticket->id) }}" class="item-edit mlg-15"--}}
+                                    {{--                                       title="ویرایش"></a>--}}
                                 </td>
                             </tr>
                         @endforeach

@@ -18,10 +18,10 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
         "morilog/jalali": "3.*",
-        "nrz/front": "dev-main",
-        "nrz/payment": "dev-main",
-        "nrz/discount":"dev-main",
-        "nrz/tickets":"dev-main"
+        "nrz/front": "dev-master",
+        "nrz/payment": "dev-master",
+        "nrz/discount":"dev-master",
+        "nrz/tickets":"dev-master"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
