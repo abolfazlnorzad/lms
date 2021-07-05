@@ -259,6 +259,7 @@
                 </div>
             </div>
         </div>
+        @include('Front::comment.index',['commentable'=>$course])
     </main>
 @endsection
 

@@ -3,7 +3,6 @@
 namespace Nrz\Discount\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use Nrz\Discount\Rules\ValidJalaliDate;
 
 class DiscountRequest extends FormRequest

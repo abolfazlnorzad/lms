@@ -3,8 +3,6 @@
 namespace Nrz\Payment\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Hamcrest\Core\Set;
-use Illuminate\Http\Request;
 use Nrz\Payment\Http\Requests\SettlementRequest;
 use Nrz\Payment\Models\Settlement;
 use Nrz\Payment\Repositories\SettlementRepo;

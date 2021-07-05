@@ -3,7 +3,6 @@
 namespace Nrz\Course\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Nrz\Common\Response\AjaxResponse;
 use Nrz\Course\Http\Requests\SeasonRequest;
 use Nrz\Course\Model\Lesson;

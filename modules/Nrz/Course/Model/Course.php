@@ -2,10 +2,10 @@
 
 namespace Nrz\Course\Model;
 
-use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Nrz\Category\Model\Category;
+use Nrz\Comment\Traits\HasComments;
 use Nrz\Course\Repo\CourseRepo;
 use Nrz\Discount\Models\Discount;
 use Nrz\Discount\Repositories\DiscountRepo;
@@ -17,7 +17,7 @@ use Nrz\User\Model\User;
 
 class Course extends Model
 {
-    use HasFactory;
+    use HasFactory,HasComments;
 
 //    use Sluggable;
 //
@@ -141,7 +141,7 @@ class Course extends Model
     {
         if ($percent == null) {
             $discount = $this->getDiscount();
-            $percent = $discount ? $discount->percent :0;
+            $percent = $discount ? $discount->percent : 0;
         }
         return $this->price * ((float)("0." . $percent));
 
@@ -204,7 +204,10 @@ class Course extends Model
 
     public function tickets()
     {
-        return $this->morphMany(Ticket::class,"ticketable");
+        return $this->morphMany(Ticket::class, "ticketable");
     }
+
+
+
 
 }

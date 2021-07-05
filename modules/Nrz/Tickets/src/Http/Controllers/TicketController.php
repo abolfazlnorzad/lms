@@ -5,7 +5,6 @@ namespace Nrz\Tickets\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Nrz\Common\Response\AjaxResponse;
-use Nrz\Media\Services\MediaFileService;
 use Nrz\Tickets\Http\Requests\ReplyRequest;
 use Nrz\Tickets\Http\Requests\TicketRequest;
 use Nrz\Tickets\Models\Reply;

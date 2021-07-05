@@ -3,11 +3,8 @@
 namespace Nrz\Category\Tests\Feature;
 
 
-use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Nrz\Category\Model\Category;
-use Nrz\User\Model\User;
 use Tests\TestCase;
 
 class CategoryTest extends TestCase

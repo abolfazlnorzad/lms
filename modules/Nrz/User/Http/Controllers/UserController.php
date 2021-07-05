@@ -3,8 +3,6 @@
 namespace Nrz\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
 use Nrz\Acl\Model\Permission;
 use Nrz\Acl\Model\Role;
 use Nrz\Acl\Repo\PermissionRepo;

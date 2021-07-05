@@ -3,7 +3,6 @@
 namespace Nrz\Course\Providers;
 
 use Database\Seeders\DatabaseSeeder;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Nrz\Course\Database\Seeds\RolePermissionTableSeeder;
 

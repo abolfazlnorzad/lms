@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Nrz\Acl\Model\Permission;
 use Nrz\Acl\Model\Role;
+use Nrz\Comment\Model\Comment;
 use Nrz\Course\Model\Course;
 use Nrz\Course\Model\Lesson;
 use Nrz\Course\Model\Season;
@@ -63,6 +64,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = ['thumb'];
+
     /**
      * Send the email verification notification.
      *
@@ -113,6 +116,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function image()
     {
         return $this->belongsTo(Media::class, 'image_id');
+    }
+
+    public function getThumbAttribute()
+    {
+        if ($this->image) {
+            return "/storage/" . $this->image->files[300];
+        }
+        return "/panel/img/profile.jpg";
     }
 
     public function courses()
@@ -189,4 +200,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Reply::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

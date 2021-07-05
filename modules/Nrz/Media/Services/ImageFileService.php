@@ -4,7 +4,6 @@
 namespace Nrz\Media\Services;
 
 
-use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Nrz\Media\Models\Media;
 

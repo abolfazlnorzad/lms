@@ -4,10 +4,8 @@
 namespace Nrz\Course\Repo;
 
 
-use GuzzleHttp\Promise\Coroutine;
 use Nrz\Course\Model\Course;
 use Nrz\Course\Model\Lesson;
-use Nrz\Payment\Models\Payment;
 
 class CourseRepo
 {

@@ -4,10 +4,8 @@ namespace Nrz\User\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use mysql_xdevapi\Result;
 use Nrz\User\Http\Requests\SendResetPasswordRequest;
 use Nrz\User\Http\Requests\VerifyCodeRequest;
-use Nrz\User\Model\User;
 use Nrz\User\Repo\UserRepo;
 use Nrz\User\Services\verifyCodeService;
 

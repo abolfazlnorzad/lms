@@ -2,10 +2,6 @@
 
 namespace Nrz\Payment\Listeners;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Str;
-
 class AddBalanceToTeacher
 {
 

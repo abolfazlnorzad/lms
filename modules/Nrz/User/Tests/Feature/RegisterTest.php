@@ -3,7 +3,6 @@
 namespace Nrz\User\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Nrz\User\Model\User;
 use Nrz\User\Services\verifyCodeService;
 use Tests\TestCase;

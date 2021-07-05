@@ -3,9 +3,7 @@
 namespace Nrz\Course\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
-use Nrz\Acl\Model\Permission;
 use Nrz\Course\Repo\SeasonRepo;
-use Nrz\User\Repo\UserRepo;
 
 class ValidSeason implements Rule
 {

@@ -2,7 +2,6 @@
 
 namespace Nrz\Discount\Repositories;
 
-use Illuminate\Support\Str;
 use Morilog\Jalali\Jalalian;
 use Nrz\Discount\Models\Discount;
 

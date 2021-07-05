@@ -3,9 +3,6 @@
 namespace Nrz\Course\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use Nrz\Course\Model\Course;
-use Nrz\Course\Rules\TeacherRule;
 
 class SeasonRequest extends FormRequest
 {

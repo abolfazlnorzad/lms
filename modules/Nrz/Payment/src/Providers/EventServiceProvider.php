@@ -3,7 +3,6 @@
 
 namespace Nrz\Payment\Providers;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Nrz\Course\Listeners\RegisterUserInCourse;
 use Nrz\Payment\Events\PaymentWasSuccessful;
 use Nrz\Payment\Listeners\AddBalanceToTeacher;
 

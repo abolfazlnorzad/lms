@@ -8,11 +8,9 @@ use Nrz\Common\Response\AjaxResponse;
 use Nrz\Course\Http\Requests\LessonRequest;
 use Nrz\Course\Model\Course;
 use Nrz\Course\Model\Lesson;
-use Nrz\Course\Model\Season;
 use Nrz\Course\Repo\CourseRepo;
 use Nrz\Course\Repo\LessonRepo;
 use Nrz\Course\Repo\SeasonRepo;
-use Nrz\Course\Rules\ValidSeason;
 use Nrz\Media\Services\MediaFileService;
 
 class LessonController extends Controller

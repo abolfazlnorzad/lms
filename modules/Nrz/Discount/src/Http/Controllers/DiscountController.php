@@ -8,7 +8,6 @@ use Nrz\Course\Model\Course;
 use Nrz\Course\Repo\CourseRepo;
 use Nrz\Discount\Http\Requests\DiscountRequest;
 use Nrz\Discount\Models\Discount;
-use Illuminate\Http\Request;
 use Nrz\Discount\Repositories\DiscountRepo;
 use Nrz\Discount\Services\DiscountService;
 

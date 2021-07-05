@@ -185,6 +185,8 @@ return [
         Nrz\Discount\Providers\DiscountServiceProvider::class,
         Nrz\Common\Providers\CommonServiceProvider::class,
         Nrz\Tickets\Providers\TicketServiceProvider::class,
+        Nrz\Comment\Providers\CommentServiceProvider::class
+
 
 
     ],

@@ -3,10 +3,7 @@
 namespace Nrz\Payment\Repositories;
 
 
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use Nrz\Payment\Models\Payment;
-use Nrz\User\Model\User;
 
 class PaymentRepo
 {

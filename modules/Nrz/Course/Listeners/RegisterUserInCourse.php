@@ -2,8 +2,6 @@
 
 namespace Nrz\Course\Listeners;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Nrz\Course\Model\Course;
 use Nrz\Course\Repo\CourseRepo;
 

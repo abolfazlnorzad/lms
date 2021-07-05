@@ -3,10 +3,8 @@
 namespace Nrz\Payment\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
-use Morilog\Jalali\Jalalian;
 use Nrz\Payment\Events\PaymentWasSuccessful;
 use Nrz\Payment\Gateways\Gateway;
 use Nrz\Payment\Models\Payment;

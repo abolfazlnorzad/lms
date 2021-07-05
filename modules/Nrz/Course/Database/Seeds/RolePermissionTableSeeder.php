@@ -5,6 +5,7 @@ namespace Nrz\Course\Database\Seeds;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+
 class RolePermissionTableSeeder extends Seeder
 {
 

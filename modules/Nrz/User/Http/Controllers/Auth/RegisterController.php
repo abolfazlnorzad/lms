@@ -4,13 +4,12 @@ namespace Nrz\User\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-
-use Nrz\User\Model\User;
-use Nrz\User\Rules\ValidPassword;
-use Nrz\User\Rules\ValidPhone;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Nrz\User\Model\User;
+use Nrz\User\Rules\ValidPassword;
+use Nrz\User\Rules\ValidPhone;
 
 class RegisterController extends Controller
 {

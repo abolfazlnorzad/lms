@@ -4,7 +4,6 @@ namespace Nrz\Dashboard\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Carbon\CarbonPeriod;
-use Illuminate\Http\Request;
 use Nrz\Payment\Repositories\PaymentRepo;
 
 class DashboardController extends Controller

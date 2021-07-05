@@ -3,16 +3,12 @@
 namespace Nrz\Course\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Http\Request;
 use Nrz\Category\Repo\CategoryRepo;
 use Nrz\Common\Response\AjaxResponse;
 use Nrz\Course\Http\Requests\CourseRequest;
 use Nrz\Course\Model\Course;
 use Nrz\Course\Repo\CourseRepo;
-use Nrz\Media\Services\ImageFileService;
 use Nrz\Media\Services\MediaFileService;
-
 use Nrz\Payment\Gateways\Gateway;
 use Nrz\Payment\Services\PaymentService;
 use Nrz\User\Repo\UserRepo;

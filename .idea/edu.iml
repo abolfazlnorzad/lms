@@ -130,6 +130,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nrz/discount" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nrz/tickets" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nrz/comment" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/genealabs/laravel-caffeine" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/jenssegers/model" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

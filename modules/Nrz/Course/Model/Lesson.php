@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
 use Nrz\Media\Models\Media;
-use Nrz\Media\Services\MediaFileService;
 
 class Lesson extends Model
 {

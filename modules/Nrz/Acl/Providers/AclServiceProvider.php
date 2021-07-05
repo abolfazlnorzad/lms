@@ -2,8 +2,6 @@
 
 namespace Nrz\Acl\Providers;
 
-use Nrz\Acl\Model\Role;
-
 class AclServiceProvider extends \Illuminate\Support\ServiceProvider
 {
 
