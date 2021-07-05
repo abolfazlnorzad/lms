@@ -37,7 +37,7 @@ class UserController extends Controller
         $permissions = PermissionRepo::getAllPermissions();
         $roles =RoleRepo::AllRole();
 
-        return view('User::admin.index', compact('users', 'permissions','roles'));
+        return view('User::Admin.index', compact('users', 'permissions','roles'));
     }
 
 
@@ -125,7 +125,7 @@ class UserController extends Controller
 
     public function profile()
     {
-        return view('User::admin.profile');
+        return view('User::Admin.profile');
     }
 
     public function UpdateProfile(UpdateProfileRequest $request)

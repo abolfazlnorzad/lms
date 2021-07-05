@@ -24,7 +24,8 @@ class MediaFileService
     public static function publicUpload($file)
     {
         self::$file = $file;
-        self::$dir = 'app\public\\';
+//        self::$dir = 'app\public\\';
+        self::$dir = 'app/public//';
         self::$isPrivate = false;
         return self::upload();
     }

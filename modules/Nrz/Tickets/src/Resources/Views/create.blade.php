@@ -11,7 +11,7 @@
                 <form action="{{ route("tickets.store") }}" method="post" enctype="multipart/form-data" class="padding-30">
                     @csrf
                     <x-input type="text" class="text" name="title" placeholder="عنوان تیکت"  />
-                    <x-textarea placeholder="متن تیکت" name="body" class="text" />
+                    <x-text-area placeholder="متن تیکت" name="body" class="text" />
                     <x-file name="attachment" placeholder="آپلود فایل پیویست" />
                     <button class="btn btn-webamooz_net">ایجاد تیکت</button>
                 </form>

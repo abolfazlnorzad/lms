@@ -1,0 +1,15 @@
+{
+    "app": "vshop",
+    "disks": [
+        {
+            "name": "v-disk",
+            "mountTo": "storage"
+        }
+    ],
+    "platform": "laravel",
+    "laravel": {
+        "phpVersion": "7.4",
+        "configCache": true,
+        "routeCache": true
+    }
+}
