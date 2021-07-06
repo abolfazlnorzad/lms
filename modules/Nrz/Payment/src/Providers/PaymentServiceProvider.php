@@ -34,7 +34,7 @@ class PaymentServiceProvider extends ServiceProvider
             "icon" => "i-transactions",
             "title" => "تراکنش ها",
             "url" => route('payments.index'),
-            'permission'=>'isAdmin'
+            'permission'=>'transaction'
         ]);
 
         config()->set('sidebar.items.my-purchases', [
@@ -44,12 +44,14 @@ class PaymentServiceProvider extends ServiceProvider
             'permission'=>null
         ]);
 
+
+
         $this->app->booted(function (){
             config()->set('sidebar.items.settlements', [
                 "icon" => "i-checkouts",
                 "title" => " تسویه حساب ها",
                 "url" => route('settlements.index'),
-                'permission'=>'isAdmin'
+                'permission'=>'teach'
             ]);
             config()->set('sidebar.items.settlementsRequest', [
                 "icon" => "i-checkout__request",

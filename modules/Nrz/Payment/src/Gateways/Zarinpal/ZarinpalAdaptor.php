@@ -14,7 +14,7 @@ class ZarinpalAdaptor implements GatewayContract
 
     public function request($amount, $title)
     {
-        $this->zp = new zarinpal();
+        $this->zp = new Zarinpal();
         $callbackUrl = route('payments.callback');
         $result = $this->zp->request("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", $amount, $title, "", "", $callbackUrl, true);
         if (isset($result["Status"]) && $result["Status"] == 100) {
@@ -30,7 +30,7 @@ class ZarinpalAdaptor implements GatewayContract
 
     public function verify(Payment $payment)
     {
-        $this->zp = new zarinpal();
+        $this->zp = new Zarinpal();
         $result = $this->zp->verify("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", $payment->amount, true);
         if (isset($result["Status"]) && $result["Status"] == 100) {
             return $result["RefID"];

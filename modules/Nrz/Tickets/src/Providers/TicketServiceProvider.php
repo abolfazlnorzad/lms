@@ -28,7 +28,7 @@ class TicketServiceProvider extends ServiceProvider
             'icon'=>"i-tickets",
             "title"=>"تیکت پشتیبانی",
             "url"=>\route('tickets.index'),
-            'permission' => null
+            'permission' => "teach"
         ]);
     }
 

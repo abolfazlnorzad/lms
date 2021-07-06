@@ -2,6 +2,9 @@
 
 namespace Nrz\Acl\Providers;
 
+use Illuminate\Support\Facades\Gate;
+use Nrz\Acl\Model\Permission;
+
 class AclServiceProvider extends \Illuminate\Support\ServiceProvider
 {
 
@@ -22,7 +25,6 @@ class AclServiceProvider extends \Illuminate\Support\ServiceProvider
             'url' => route('permissions.index'),
             'permission'=>'show-acl'
         ]);
-
 
         config()->set('sidebar.items.role', [
             'icon' => "i-role-permissions",

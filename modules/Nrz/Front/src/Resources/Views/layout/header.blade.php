@@ -8,7 +8,7 @@
     <div class="container">
         <div class="t-header-row">
             <div class="t-header-right">
-                <div class="t-header-logo"><a href="index.html"></a></div>
+                <div class="t-header-logo"><a href="/"></a></div>
                 <div class="t-header-search">
                     <div class="t-header-searchbox">
                         <input type="text" placeholder="جستجو دوره / مقاله / مدرس">

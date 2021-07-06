@@ -20,14 +20,15 @@ class DiscountServiceProvider extends ServiceProvider
         $this->loadJsonTranslationsFrom(__DIR__ . "/../Resources/Lang/");
     }
 
+
+
     public function boot()
     {
         config()->set("sidebar.items.discount", [
             'icon' => 'i-discounts',
             "title" => "تخفیف ها",
             "url" => route("discounts.index"),
-            'permission' => 'isAdmin'
+            'permission' => 'discount'
         ]);
     }
-
 }

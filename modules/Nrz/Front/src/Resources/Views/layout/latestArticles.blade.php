@@ -8,7 +8,7 @@
             <a href="react.html">
                 <div class="card-img"><img src="img/banner/reactjs.png" alt="reactjs"></div>
                 <div class="card-title"><h2>
-                        فاسد در فریم ورک لاراول
+                         فریم ورک لاراول
                     </h2></div>
                 <div class="card-body">
 
@@ -23,7 +23,7 @@
             <a href="react.html">
                 <div class="card-img"><img src="img/banner/reactjs.png" alt="reactjs"></div>
                 <div class="card-title"><h2>
-                        فاسد در فریم ورک لاراول
+                         فریم ورک لاراول
                     </h2></div>
                 <div class="card-body">
 
@@ -38,7 +38,7 @@
             <a href="react.html">
                 <div class="card-img"><img src="img/banner/reactjs.png" alt="reactjs"></div>
                 <div class="card-title"><h2>
-                        فاسد در فریم ورک لاراول
+                         فریم ورک لاراول
                     </h2></div>
                 <div class="card-body">
 
@@ -53,7 +53,7 @@
             <a href="react.html">
                 <div class="card-img"><img src="img/banner/reactjs.png" alt="reactjs"></div>
                 <div class="card-title"><h2>
-                        فاسد در فریم ورک لاراول
+                         فریم ورک لاراول
                     </h2></div>
                 <div class="card-body">
 

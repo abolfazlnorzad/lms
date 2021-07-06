@@ -27,7 +27,7 @@
                             <span class="detail-type">@lang($lesson->type)</span>
                             <span class="detail-time">{{ $lesson->time }} دقیقه</span>
                             @auth()
-                                @if( auth()->user()->hasAccessToCourse($lesson->course) || auth()->user()->AccessToFreeLesson($lesson))
+                                @if( auth()->user()->hasAccessToCourse($lesson->course) || auth()->user()->AccessToFreeLesson($lesson) || auth()->user()->isAdmin())
                                     <a class="detail-download" href="{{$lesson->downloadLink()}}">
                                         <i class="icon-download"></i>
                                     </a>

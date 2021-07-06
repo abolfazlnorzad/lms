@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2021 at 07:16 AM
+-- Generation Time: Jul 05, 2021 at 07:50 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -47,6 +47,40 @@ INSERT INTO `categories` (`id`, `title`, `slug`, `parent_id`, `created_at`, `upd
 (7, 'دارت', 'dart', 4, '2021-03-21 10:24:39', '2021-03-21 10:24:39'),
 (8, 'افتر افکت', 'after effect', 5, '2021-03-21 10:25:03', '2021-03-21 10:25:29'),
 (9, 'فتوشاپ', 'photoshop', 5, '2021-03-21 10:25:18', '2021-03-21 10:25:18');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `parent_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `commentable_id` bigint(20) UNSIGNED NOT NULL,
+  `commentable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('new','approved','rejected') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new',
+  `body` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `user_id`, `parent_id`, `commentable_id`, `commentable_type`, `status`, `body`, `created_at`, `updated_at`) VALUES
+(1, 1, NULL, 1, 'Nrz\\Course\\Model\\Course', 'new', 'کامنت اول برای دوره جاوا اسکریپت', '2021-07-03 10:34:08', '2021-07-03 10:34:08'),
+(2, 1, NULL, 1, 'Nrz\\Course\\Model\\Course', 'approved', 'کامنت دوم برای جاوا به عنوان مدیرکل', '2021-07-03 10:52:10', '2021-07-03 10:52:10'),
+(3, 4, NULL, 1, 'Nrz\\Course\\Model\\Course', 'approved', 'نظر مدرس', '2021-07-03 10:53:08', '2021-07-03 10:53:08'),
+(4, 12, NULL, 1, 'Nrz\\Course\\Model\\Course', 'new', 'نظر دانشجو', '2021-07-03 10:54:19', '2021-07-03 10:54:19'),
+(5, 1, 2, 1, 'Nrz\\Course\\Model\\Course', 'approved', 'پاسخ به دیدگاه دوم  . . .', '2021-07-04 11:53:17', '2021-07-04 11:53:17'),
+(6, 1, 3, 1, 'Nrz\\Course\\Model\\Course', 'approved', 'پاسخ به دیدگاه مدرس', '2021-07-04 13:34:39', '2021-07-04 13:34:39'),
+(8, 4, 2, 1, 'Nrz\\Course\\Model\\Course', 'approved', 'پاسخ بقه کامنت دوم با مدرس', '2021-07-04 13:37:35', '2021-07-04 13:37:35'),
+(9, 12, 3, 1, 'Nrz\\Course\\Model\\Course', 'rejected', 'پاسخ به کامنت مدرس به عنوان دانشجو', '2021-07-04 13:39:19', '2021-07-04 13:39:19'),
+(10, 1, 3, 1, 'Nrz\\Course\\Model\\Course', 'approved', 'dfgdfg', '2021-07-04 13:59:51', '2021-07-04 13:59:51'),
+(11, 1, NULL, 1, 'Nrz\\Course\\Model\\Course', 'approved', 'sdf', '2021-07-04 14:15:48', '2021-07-04 14:15:48');
 
 -- --------------------------------------------------------
 
@@ -266,8 +300,9 @@ INSERT INTO `media` (`id`, `user_id`, `files`, `type`, `filename`, `is_private`,
 (8, 1, '{\"zip\":\"60575428391d7.zip\"}', 'zip', 'Lilex-1.100.zip', 1, '2021-03-21 10:41:52', '2021-03-21 10:41:52'),
 (10, 12, '{\"original\":\"605dc75425d25.png\",\"300\":\"605dc75425d25300.png\",\"600\":\"605dc75425d25600.png\"}', 'image', '244-2441777_profile-clipart-manager-manager-cartoon-transparent.png', 0, '2021-03-26 07:06:52', '2021-03-26 07:06:52'),
 (11, 1, '{\"original\":\"60a8bd178fbe9.png\",\"300\":\"60a8bd178fbe9300.png\",\"600\":\"60a8bd178fbe9600.png\"}', 'image', 'download (1).png', 1, '2021-05-22 03:43:12', '2021-05-22 03:43:12'),
-(12, 1, '{\"original\":\"60a8c6dc9bd33.png\",\"300\":\"60a8c6dc9bd33300.png\",\"600\":\"60a8c6dc9bd33600.png\"}', 'image', '606-6064920_manager-clipart-store-manager-cartoon-face-with-glasses.png', 0, '2021-05-22 04:24:52', '2021-05-22 04:24:52'),
-(13, 1, '{\"original\":\"60a8e00a988ec.png\",\"300\":\"60a8e00a988ec300.png\",\"600\":\"60a8e00a988ec600.png\"}', 'image', 'ba23cdfe71.png', 1, '2021-05-22 06:12:19', '2021-05-22 06:12:19');
+(13, 1, '{\"original\":\"60a8e00a988ec.png\",\"300\":\"60a8e00a988ec300.png\",\"600\":\"60a8e00a988ec600.png\"}', 'image', 'ba23cdfe71.png', 1, '2021-05-22 06:12:19', '2021-05-22 06:12:19'),
+(19, 4, '{\"zip\":\"60df33c01faab.zip\"}', 'zip', '972013035 - ابوالفضل نورزاد.zip', 1, '2021-07-02 11:11:52', '2021-07-02 11:11:52'),
+(20, 1, '{\"original\":\"60e089abe2dd7.png\",\"300\":\"60e089abe2dd7300.png\",\"600\":\"60e089abe2dd7600.png\"}', 'image', 'download.png', 0, '2021-07-03 11:30:44', '2021-07-03 11:30:44');
 
 -- --------------------------------------------------------
 
@@ -303,7 +338,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (19, '2021_03_28_052348_create_discounts_table', 3),
 (20, '2021_04_09_071353_create_discount_payment_table', 4),
 (25, '2021_04_09_112321_create_tickets_table', 5),
-(26, '2021_04_09_112359_create_ticket_replies_table', 5);
+(26, '2021_04_09_112359_create_ticket_replies_table', 5),
+(28, '2021_07_03_110749_create_comments_table', 6);
 
 -- --------------------------------------------------------
 
@@ -588,7 +624,8 @@ CREATE TABLE `tickets` (
 --
 
 INSERT INTO `tickets` (`id`, `title`, `status`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'مشکل در دانلود دوره ها', 'close', 4, '2021-05-22 06:42:31', '2021-05-22 07:11:13');
+(3, 'مشکل دانلود فایل', 'close', 4, '2021-07-01 11:11:52', '2021-07-02 13:37:49'),
+(4, 'tesxt', 'open', 1, '2021-07-02 11:41:24', '2021-07-02 11:41:24');
 
 -- --------------------------------------------------------
 
@@ -611,11 +648,9 @@ CREATE TABLE `ticket_replies` (
 --
 
 INSERT INTO `ticket_replies` (`id`, `user_id`, `ticket_id`, `media_id`, `body`, `created_at`, `updated_at`) VALUES
-(1, 4, 1, NULL, 'سلام من در دانلود دوره ها مشکل دارم', '2021-05-22 06:42:31', '2021-05-22 06:42:31'),
-(2, 1, 1, NULL, 'با سلام و وقت بخیر\r\nلطفا مشکل خود را دقیقا شرح دهید', '2021-05-22 06:46:20', '2021-05-22 06:46:20'),
-(3, 4, 1, NULL, 'نمیتوانم ویدیو های دوره ویو جی اس را دانلود کنم', '2021-05-22 06:47:55', '2021-05-22 06:47:55'),
-(4, 1, 1, NULL, 'حله بررسی میکنیم', '2021-05-22 06:48:12', '2021-05-22 06:48:12'),
-(5, 4, 1, NULL, 'مرسی', '2021-05-22 07:11:08', '2021-05-22 07:11:08');
+(9, 4, 3, 19, 'مشکل دانلود فایلمشکل دانلود فایلمشکل دانلود فایلمشکل دانلود فایلمشکل دانلود فایلمشکل دانلود فایلمشکل دانلود فایلمشکل دانلود فایلمشکل دانلود فایلمشکل دانلود فایلمشکل دانلود فایلمشکل دانلود فایل', '2021-07-02 11:11:52', '2021-07-02 11:11:52'),
+(10, 1, 3, NULL, 'شیبشسیبسشیبشسیب', '2021-07-02 11:12:16', '2021-07-02 11:12:16'),
+(11, 1, 4, NULL, 'texdt', '2021-07-02 11:41:24', '2021-07-02 11:41:24');
 
 -- --------------------------------------------------------
 
@@ -652,7 +687,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `username`, `is_admin`, `is_staff`, `balance`, `headline`, `bio`, `ip`, `card_number`, `shaba`, `telegram`, `status`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `image_id`) VALUES
-(1, 'ابوالفضل', 'abol@gmail.com', '09011216131', 'abol', 1, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-21 10:17:43', '$2y$10$FNucXFynrP1MQrRdB7nCN.FyMkm3yFGFREzh9yEpfwUlTW/YfXDbS', 'Mou6OnnJkvH2oJUNjskx8jsEjODJZomtgbCBNt0O27NEe8lZlwHa8u7rlA1J', '2021-03-21 10:16:51', '2021-05-22 04:24:52', 12),
+(1, 'ابوالفضل', 'abol@gmail.com', '09011216131', 'abol', 1, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-21 10:17:43', '$2y$10$FNucXFynrP1MQrRdB7nCN.FyMkm3yFGFREzh9yEpfwUlTW/YfXDbS', 'Mou6OnnJkvH2oJUNjskx8jsEjODJZomtgbCBNt0O27NEe8lZlwHa8u7rlA1J', '2021-03-21 10:16:51', '2021-07-03 11:30:44', 20),
 (2, 'علی', 'ali@gmail.com', '09011216132', 'ali', 0, 0, 253592, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-21 10:17:43', '$2y$10$FNucXFynrP1MQrRdB7nCN.FyMkm3yFGFREzh9yEpfwUlTW/YfXDbS', 'BfQeSjJg3qBpOkySBNMVJ6gVBkAVwfud0HiOrnQpCYXRb4LNnGxiik1eOAwC', '2021-03-21 10:16:51', '2021-04-09 06:27:00', NULL),
 (3, 'رضا', 'aclmanager@gmail.com', '09011216133', 'reza', 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-21 10:17:43', '$2y$10$FNucXFynrP1MQrRdB7nCN.FyMkm3yFGFREzh9yEpfwUlTW/YfXDbS', 'H5IihAKy5vzvp08HXTnlFRrjTqVeDC28GYDyHIyB6BQJDVZEBZDiwiCLYUCc', '2021-03-21 10:16:51', '2021-03-26 02:44:10', NULL),
 (4, 'امیر', 'amir@gmail.com', '09011216134', 'amir', 0, 0, 10000, NULL, NULL, NULL, NULL, NULL, NULL, 'active', '2021-03-21 10:17:43', '$2y$10$FNucXFynrP1MQrRdB7nCN.FyMkm3yFGFREzh9yEpfwUlTW/YfXDbS', 'oBZfclG33rlJo9QItCXMrst2gt4RcsT4YchPEDnK9VWo4kkk2ibzjJbVUUVV', '2021-03-21 10:16:51', '2021-03-24 04:28:51', NULL),
@@ -676,6 +711,14 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `categories_slug_unique` (`slug`),
   ADD KEY `categories_parent_id_foreign` (`parent_id`);
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `comments_user_id_foreign` (`user_id`),
+  ADD KEY `comments_parent_id_foreign` (`parent_id`);
 
 --
 -- Indexes for table `courses`
@@ -845,6 +888,12 @@ ALTER TABLE `categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
@@ -872,13 +921,13 @@ ALTER TABLE `lessons`
 -- AUTO_INCREMENT for table `media`
 --
 ALTER TABLE `media`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -932,13 +981,13 @@ ALTER TABLE `settlements`
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ticket_replies`
 --
 ALTER TABLE `ticket_replies`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -955,6 +1004,13 @@ ALTER TABLE `users`
 --
 ALTER TABLE `categories`
   ADD CONSTRAINT `categories_parent_id_foreign` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `comments_parent_id_foreign` FOREIGN KEY (`parent_id`) REFERENCES `comments` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `comments_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `courses`

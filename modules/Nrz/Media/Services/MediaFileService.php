@@ -16,7 +16,7 @@ class MediaFileService
     public static function privateUpload($file)
     {
         self::$file = $file;
-        self::$dir = "app\private\\";
+        self::$dir = "app/private//";
         self::$isPrivate = true;
         return self::upload();
     }

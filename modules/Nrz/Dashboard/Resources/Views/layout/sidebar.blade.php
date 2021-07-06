@@ -7,17 +7,20 @@
     <ul>
 
         @foreach(config('sidebar.items') as $item)
-
-            @if($item['permission'])
+            {{--            @if($item['permission'])--}}
+            {{--                @if(! array_key_exists('permission', $item) ||--}}
+            {{--               auth()->user()->hasPermission($item['permission']) ||--}}
+            {{--               auth()->user()->isAdmin()--}}
+            {{--               )--}}
             @can($item['permission'])
-                <li class="item-li {{$item['icon']}} {{str_starts_with(request()->url(),$item['url'])   ?'is-active' :''}}">
+                <li class="item-li {{$item['icon']}} {{request()->url() === $item['url'] ? 'is-active' :''}}">
                     <a href="{{$item['url']}}">{{$item['title']}}</a></li>
-            @endcan()
-            @else
-                <li class="item-li {{$item['icon']}} {{str_starts_with(request()->url(),$item['url'])   ?'is-active' :''}}">
-                    <a href="{{$item['url']}}">{{$item['title']}}</a></li>
-            @endif
+            @endcan
         @endforeach
+        {{--            @else--}}
+        {{--                <li class="item-li {{$item['icon']}} {{request()->url() == $item['url'] ? 'is-active' :''}}">--}}
+        {{--                    <a href="{{$item['url']}}">{{$item['title']}}</a></li>--}}
+        {{--            @endif--}}
 
         {{--        <li class="item-li i-courses "><a href="courses.html">دوره ها</a></li>--}}
         {{--        <li class="item-li i-users"><a href="users.html"> کاربران</a></li>--}}

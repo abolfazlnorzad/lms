@@ -149,6 +149,7 @@ class User extends Authenticatable implements MustVerifyEmail
         if (
             $this->id == $course->teacher_id
             || $course->students->contains($this->id)
+            ||auth()->user()->isAdmin()
         ) {
             return true;
         } else {
